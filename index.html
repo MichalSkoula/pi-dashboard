@@ -50,7 +50,7 @@
                                 <td>{{ ledtech.updated }} </td>
                             </tr>
                         </table>
-                        <img src="data/ledtech.jpg" class="img-fluid">
+                        <img src="data/ledtech.jpg" class="img-fluid" id="ledtech-cam">
                     </div>
                     <div class="col-sm mt-4">
                         <h2>Lasena Pi Zero</h2>
@@ -95,25 +95,34 @@
         <script>
             var vm = new Vue({
                 el: '#app',
+                methods: {
+                    updateData: function(event) {
+                        // json
+                        axios.get('data/ledtech.json').then(response => (
+                            this.ledtech = response.data
+                        ));
+                        axios.get('data/lasena.json').then(response => (
+                            this.lasena = response.data
+                        ));
+                        
+                        // camera
+                        document.getElementById("ledtech-cam").src = 'data/ledtech.jpg?t=' + (new Date().getTime());   
+                    }
+                },
                 data: {
                     ledtech: {
-                        temp: {
-
-                        }
+                        temp: {}
                     },
                     lasena: {
-                        temp: {
-
-                        }
+                        temp: {}
                     }
                 },
                 mounted: function() {
-                    axios.get('data/ledtech.json').then(response => (
-                        this.ledtech = response.data
-                    ));
-                    axios.get('data/lasena.json').then(response => (
-                        this.lasena = response.data
-                    ));
+                    this.updateData();
+
+                    window.setInterval(() => {
+                        this.updateData();
+                    }, 15 * 1000);
                 }
             });
         </script>
