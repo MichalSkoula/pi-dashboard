@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>pi.skoula.cz</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    </head>
+    <body>    
+        <header>
+            <div class="navbar navbar-dark bg-dark shadow-sm">
+                <div class="container d-flex justify-content-between">
+                    <a href="index.html" class="navbar-brand d-flex align-items-center">
+                        <strong>pi.skoula.cz</strong>
+                    </a>
+                </div>
+            </div>
+        </header>
+        <main role="main">
+            <div class="container">
+                <div id="app" class="row">
+                    <div class="col-sm mt-4">
+                        <h2>Ledtech Pi 3B</h2>
+                        <table class='table'>
+                            <tr>
+                                <td>Room temp</td>
+                                <td>{{ ledtech.temp.actual }} °C <span class='float-right'>(min {{ ledtech.temp.min }} °C / max {{ ledtech.temp.max }} °C / avg {{ ledtech.temp.avg }} °C)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Room pressure</td>
+                                <td>{{ ledtech.pressure }} Pa</td>
+                            </tr>
+                            <tr>
+                                <td>Room humidity</td>
+                                <td>{{ ledtech.humidity }} %</td>
+                            </tr>
+                            <tr>
+                                <td>CPU temp</td>
+                                <td>{{ ledtech.cpu_temp }} °C</td>
+                            </tr>
+                            <tr>
+                                <td>Load</td>
+                                <td>
+                                    <div class='progress' style='height: 1.5rem;'>
+                                        <div class='progress-bar' role='progressbar' v-bind:style='{ width: ledtech.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.cpu_load }} %</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Updated</td>
+                                <td>{{ ledtech.updated }} </td>
+                            </tr>
+                        </table>
+                        <img src="data/ledtech.jpg" class="img-fluid">
+                    </div>
+                    <div class="col-sm mt-4">
+                        <h2>Lasena Pi Zero</h2>
+                        <table class='table'>
+                            <tr>
+                                <td>Room temp</td>
+                                <td>{{ lasena.temp.actual }} °C <span class='float-right'>(min {{ lasena.temp.min }} °C / max {{ lasena.temp.max }} °C / avg {{ lasena.temp.avg }} °C)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Room pressure</td>
+                                <td>{{ lasena.pressure }} Pa</td>
+                            </tr>
+                            <tr>
+                                <td>Room humidity</td>
+                                <td>{{ lasena.humidity }} %</td>
+                            </tr>
+                            <tr>
+                                <td>CPU temp</td>
+                                <td>{{ lasena.cpu_temp }} °C</td>
+                            </tr>
+                            <tr>
+                                <td>Load</td>
+                                <td>
+                                    <div class='progress' style='height: 1.5rem;'>
+                                        <div class='progress-bar' role='progressbar' v-bind:style='{ width: lasena.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ lasena.cpu_load }} %</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Updated</td>
+                                <td>{{ lasena.updated }} </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script src="node_modules/vue/dist/vue.js"></script>
+        <script src="node_modules/axios/dist/axios.js"></script>
+
+        <script>
+            var vm = new Vue({
+                el: '#app',
+                data: {
+                    ledtech: {
+                        temp: {
+
+                        }
+                    },
+                    lasena: {
+                        temp: {
+
+                        }
+                    }
+                },
+                mounted: function() {
+                    axios.get('data/ledtech.json').then(response => (
+                        this.ledtech = response.data
+                    ));
+                    axios.get('data/lasena.json').then(response => (
+                        this.lasena = response.data
+                    ));
+                }
+            });
+        </script>
+    </body>
+</html>

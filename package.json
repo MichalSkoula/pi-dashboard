@@ -1,0 +1,24 @@
+{
+  "name": "pi-dashboard",
+  "version": "1.0.0",
+  "description": "Personal project. Dashboard for my Raspberries.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichalSkoula/pi-dashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichalSkoula/pi-dashboard/issues"
+  },
+  "homepage": "https://github.com/MichalSkoula/pi-dashboard#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "vue": "^2.6.11"
+  }
+}
