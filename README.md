@@ -6,7 +6,7 @@ Personal project. Dashboard for my Raspberries, showing temperature, pressure an
 Vue application - frontend. Fetch JSON from webserver, show it and repeat.
 
 ## raspberry-cron 
-Python and even PHP scripts to fetch data from sensors. Running from secret bash cron script: fetch data, insert into MySQL, create JSON and upload it to real webserver.
+Python and even PHP scripts to fetch data from sensors. Running from secret bash cron script (not part of this repository): fetch data, insert into MySQL, create JSON and upload it to real webserver.
 
 ## arduino-sensor
 Arduino connected to Raspberry, sending JSON via serial connection. An alternative to connecting sensors directly to the Raspberry.
