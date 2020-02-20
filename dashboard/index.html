@@ -3,7 +3,7 @@
         <meta charset='utf-8'>
         <title>pi.skoula.cz</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     </head>
     <body>    
         <header>
@@ -18,27 +18,27 @@
         <main role="main">
             <div class="container">
                 <div id="app" class="row">
-                    <div class="col-sm mt-4">
+                    <div class="col-sm">
                         <h2>Ledtech Pi 3B</h2>
                         <table class='table'>
                             <tr>
-                                <td>Room temp</td>
+                                <td>Temperature</td>
                                 <td>{{ ledtech.temp.actual }} °C <span class='float-right'>(min {{ ledtech.temp.min }} °C / max {{ ledtech.temp.max }} °C / avg {{ ledtech.temp.avg }} °C)</span></td>
                             </tr>
                             <tr>
-                                <td>Room pressure</td>
+                                <td>Pressure</td>
                                 <td>{{ ledtech.pressure }} Pa</td>
                             </tr>
                             <tr>
-                                <td>Room humidity</td>
+                                <td>Humidity</td>
                                 <td>{{ ledtech.humidity }} %</td>
                             </tr>
                             <tr>
-                                <td>CPU temp</td>
+                                <td>CPU Temperature</td>
                                 <td>{{ ledtech.cpu_temp }} °C</td>
                             </tr>
                             <tr>
-                                <td>Load</td>
+                                <td>CPU Load</td>
                                 <td>
                                     <div class='progress' style='height: 1.5rem;'>
                                         <div class='progress-bar' role='progressbar' v-bind:style='{ width: ledtech.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.cpu_load }} %</div>
@@ -50,29 +50,62 @@
                                 <td>{{ ledtech.updated }} </td>
                             </tr>
                         </table>
-                        <img src="data/ledtech.jpg" class="img-fluid" id="ledtech-cam">
+                        <a class="lightbox" href="data/ledtech.jpg" id="ledtech-cam-a">
+                            <img src="data/ledtech.jpg" class="img-fluid" id="ledtech-cam">
+                        </a>
                     </div>
-                    <div class="col-sm mt-4">
+                    <div class="col-sm">
+                        <h2>Arduino Outdoor Sensor</h2>
+                        <table class='table'>
+                            <tr>
+                                <td>Temperature</td>
+                                <td>{{ arduino.temp.actual }} °C <span class='float-right'>(min {{ arduino.temp.min }} °C / max {{ arduino.temp.max }} °C / avg {{ arduino.temp.avg }} °C)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Pressure</td>
+                                <td>{{ arduino.pressure }} Pa</td>
+                            </tr>
+                            <tr>
+                                <td>Humidity</td>
+                                <td>{{ arduino.humidity }} %</td>
+                            </tr>
+                            <tr>
+                                <td>CPU Temperature</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>CPU Load</td>
+                                <td>
+                                    -
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Updated</td>
+                                <td>{{ arduino.updated }} </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm">
                         <h2>Lasena Pi Zero</h2>
                         <table class='table'>
                             <tr>
-                                <td>Room temp</td>
+                                <td>Temperature</td>
                                 <td>{{ lasena.temp.actual }} °C <span class='float-right'>(min {{ lasena.temp.min }} °C / max {{ lasena.temp.max }} °C / avg {{ lasena.temp.avg }} °C)</span></td>
                             </tr>
                             <tr>
-                                <td>Room pressure</td>
+                                <td>Pressure</td>
                                 <td>{{ lasena.pressure }} Pa</td>
                             </tr>
                             <tr>
-                                <td>Room humidity</td>
+                                <td>Humidity</td>
                                 <td>{{ lasena.humidity }} %</td>
                             </tr>
                             <tr>
-                                <td>CPU temp</td>
+                                <td>CPU Temperature</td>
                                 <td>{{ lasena.cpu_temp }} °C</td>
                             </tr>
                             <tr>
-                                <td>Load</td>
+                                <td>CPU Load</td>
                                 <td>
                                     <div class='progress' style='height: 1.5rem;'>
                                         <div class='progress-bar' role='progressbar' v-bind:style='{ width: lasena.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ lasena.cpu_load }} %</div>
@@ -90,7 +123,9 @@
         </main>
 
         <script src="node_modules/vue/dist/vue.js"></script>
-        <script src="node_modules/axios/dist/axios.js"></script>
+        <script src="node_modules/axios/dist/axios.min.js"></script>
+        <script src="node_modules/simple-lightbox/dist/simpleLightbox.min.js"></script>
+        <link rel="stylesheet" href="node_modules/simple-lightbox/dist/simpleLightbox.min.css">
 
         <script>
             var vm = new Vue({
@@ -104,9 +139,16 @@
                         axios.get('data/lasena.json').then(response => (
                             this.lasena = response.data
                         ));
+                        axios.get('data/arduino.json').then(response => (
+                            this.arduino = response.data
+                        ));
                         
                         // camera
-                        document.getElementById("ledtech-cam").src = 'data/ledtech.jpg?t=' + (new Date().getTime());   
+                        document.getElementById("ledtech-cam").src = document.getElementById("ledtech-cam-a").href = 'data/ledtech.jpg?t=' + (new Date().getTime());
+                        if (typeof this.lightbox.destroy === 'function') {
+                            this.lightbox.destroy();
+                        }
+                        this.lightbox = new SimpleLightbox({elements: 'a.lightbox'});
                     }
                 },
                 data: {
@@ -115,7 +157,11 @@
                     },
                     lasena: {
                         temp: {}
-                    }
+                    },
+                    arduino: {
+                        temp: {}
+                    },
+                    lightbox: ''
                 },
                 mounted: function() {
                     this.updateData();
