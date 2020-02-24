@@ -4,117 +4,104 @@
         <title>pi.skoula.cz</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>    
         <header>
             <div class="navbar navbar-dark bg-dark shadow-sm">
-                <div class="container-fluid d-flex justify-content-between">
+                <div class="container d-flex justify-content-between">
                     <a href="index.html" class="navbar-brand d-flex align-items-center">
-                        <strong>pi.skoula.cz</strong>
+                        <i class="fab fa-raspberry-pi fa-lg mr-2"></i> pi.skoula.cz
                     </a>
                 </div>
             </div>
         </header>
         <main role="main">
-            <div class="container-fluid">
+            <div class="container">
                 <div id="app" class="row">
                     <div class="col mt-3">
                         <h2>LEDTECH <small>Raspberry Pi 3B+</small></h2>
                         <table class='table'>
                             <tr>
-                                <td>Temperature</td>
-                                <td>{{ ledtech.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech.temp.min }} °C / max {{ ledtech.temp.max }} °C / avg {{ ledtech.temp.avg }} °C</small></td>
+                                <td><i class="fas fa-fw fa-thermometer-half"></i> Temperature</td>
+                                <th>{{ ledtech.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech.temp.min }} °C / max {{ ledtech.temp.max }} °C / avg {{ ledtech.temp.avg }} °C</small></th>
                             </tr>
                             <tr>
-                                <td>Pressure</td>
-                                <td>{{ ledtech.pressure }} Pa</td>
+                                <td><i class="fas fa-fw fa-cloud-rain"></i> Pressure</td>
+                                <th>{{ ledtech.pressure | formatKilo }} kPa</th>
                             </tr>
                             <tr>
-                                <td>Humidity</td>
-                                <td>{{ ledtech.humidity }} %</td>
+                                <td><i class="fas fa-fw fa-tint"></i> Humidity</td>
+                                <th>{{ ledtech.humidity }} %</th>
                             </tr>
                             <tr>
-                                <td>CPU Temperature</td>
-                                <td>{{ ledtech.cpu_temp }} °C</td>
-                            </tr>
-                            <tr>
-                                <td>CPU Load</td>
-                                <td>
-                                    <div class='progress' style='height: 1.5rem;'>
+                                <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
+                                <th>
+                                    {{ ledtech.cpu_temp }} °C 
+                                    <div class='progress mt-1'>
                                         <div class='progress-bar' role='progressbar' v-bind:style='{ width: ledtech.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.cpu_load }} %</div>
                                     </div>
-                                </td>
+                                </th>
                             </tr>
                             <tr>
                                 <td>Updated</td>
-                                <td>{{ ledtech.updated }} </td>
+                                <th>{{ ledtech.updated }}</th>
                             </tr>
                         </table>
                         <a class="lightbox" href="data/ledtech.jpg" id="ledtech-cam-a">
-                            <img src="data/ledtech.jpg" class="img-fluid" id="ledtech-cam">
+                            <img src="data/ledtech.jpg" class="img-fluid img-thumbnail" id="ledtech-cam">
                         </a>
-                    </div>
-                    <div class="col mt-3">
-                        <h2>LEDTECH <small>Arduino Outdoor Sensor</small></h2>
-                        <table class='table'>
-                            <tr>
-                                <td>Temperature</td>
-                                <td>{{ arduino.temp.actual }} °C <small class='float-right text-muted'>min {{ arduino.temp.min }} °C / max {{ arduino.temp.max }} °C / avg {{ arduino.temp.avg }} °C</small></td>
-                            </tr>
-                            <tr>
-                                <td>Pressure</td>
-                                <td>{{ arduino.pressure }} Pa</td>
-                            </tr>
-                            <tr>
-                                <td>Humidity</td>
-                                <td>{{ arduino.humidity }} %</td>
-                            </tr>
-                            <tr>
-                                <td>CPU Temperature</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>CPU Load</td>
-                                <td>
-                                    -
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Updated</td>
-                                <td>{{ arduino.updated }} </td>
-                            </tr>
-                        </table>
+
+                        <div class="mt-4">
+                            <h3>Arduino Outdoor Sensor</h3>
+                            <table class='table'>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-thermometer-half"></i> Temperature</td>
+                                    <th>{{ arduino.temp.actual }} °C <small class='float-right text-muted'>min {{ arduino.temp.min }} °C / max {{ arduino.temp.max }} °C / avg {{ arduino.temp.avg }} °C</small></th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-cloud-rain"></i> Pressure</td>
+                                    <th>{{ arduino.pressure | formatKilo }} kPa</th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-tint"></i> Humidity</td>
+                                    <th>{{ arduino.humidity }} %</th>
+                                </tr>
+                                <tr>
+                                    <td>Updated</td>
+                                    <th>{{ arduino.updated }} </th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                     <div class="col mt-3">
                         <h2>LASENA <small>Raspberry Pi Zero W</small></h2>
                         <table class='table'>
                             <tr>
-                                <td>Temperature</td>
-                                <td>{{ lasena.temp.actual }} °C <small class='float-right text-muted'>min {{ lasena.temp.min }} °C / max {{ lasena.temp.max }} °C / avg {{ lasena.temp.avg }} °C</small></td>
+                                <td><i class="fas fa-fw fa-thermometer-half"></i> Temperature</td>
+                                <th>{{ lasena.temp.actual }} °C <small class='float-right text-muted'>min {{ lasena.temp.min }} °C / max {{ lasena.temp.max }} °C / avg {{ lasena.temp.avg }} °C</small></th>
                             </tr>
                             <tr>
-                                <td>Pressure</td>
-                                <td>{{ lasena.pressure }} Pa</td>
+                                <td><i class="fas fa-fw fa-cloud-rain"></i> Pressure</td>
+                                <th>{{ lasena.pressure | formatKilo }} kPa</th>
                             </tr>
                             <tr>
-                                <td>Humidity</td>
-                                <td>{{ lasena.humidity }} %</td>
+                                <td><i class="fas fa-fw fa-tint"></i> Humidity</td>
+                                <th>{{ lasena.humidity }} %</th>
                             </tr>
                             <tr>
-                                <td>CPU Temperature</td>
-                                <td>{{ lasena.cpu_temp }} °C</td>
-                            </tr>
-                            <tr>
-                                <td>CPU Load</td>
-                                <td>
-                                    <div class='progress' style='height: 1.5rem;'>
+                                <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
+                                <th>
+                                    {{ lasena.cpu_temp }} °C 
+                                    <div class='progress mt-1'>
                                         <div class='progress-bar' role='progressbar' v-bind:style='{ width: lasena.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ lasena.cpu_load }} %</div>
                                     </div>
-                                </td>
+                                </th>
                             </tr>
                             <tr>
                                 <td>Updated</td>
-                                <td>{{ lasena.updated }} </td>
+                                <th>{{ lasena.updated }} </th>
                             </tr>
                         </table>
                     </div>
@@ -127,50 +114,6 @@
         <script src="node_modules/simple-lightbox/dist/simpleLightbox.min.js"></script>
         <link rel="stylesheet" href="node_modules/simple-lightbox/dist/simpleLightbox.min.css">
 
-        <script>
-            var vm = new Vue({
-                el: '#app',
-                methods: {
-                    updateData: function(event) {
-                        // json
-                        axios.get('data/ledtech.json').then(response => (
-                            this.ledtech = response.data
-                        ));
-                        axios.get('data/lasena.json').then(response => (
-                            this.lasena = response.data
-                        ));
-                        axios.get('data/arduino.json').then(response => (
-                            this.arduino = response.data
-                        ));
-                        
-                        // camera
-                        document.getElementById("ledtech-cam").src = document.getElementById("ledtech-cam-a").href = 'data/ledtech.jpg?t=' + (new Date().getTime());
-                        if (typeof this.lightbox.destroy === 'function') {
-                            this.lightbox.destroy();
-                        }
-                        this.lightbox = new SimpleLightbox({elements: 'a.lightbox'});
-                    }
-                },
-                data: {
-                    ledtech: {
-                        temp: {}
-                    },
-                    lasena: {
-                        temp: {}
-                    },
-                    arduino: {
-                        temp: {}
-                    },
-                    lightbox: ''
-                },
-                mounted: function() {
-                    this.updateData();
-
-                    window.setInterval(() => {
-                        this.updateData();
-                    }, 15 * 1000);
-                }
-            });
-        </script>
+        <script src="index.js"></script>
     </body>
 </html>

@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/MichalSkoula/pi-dashboard#readme",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.1",
+    "@popperjs/core": "^2.0.6",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
     "simple-lightbox": "^2.1.0",
     "vue": "^2.6.11"
   }
