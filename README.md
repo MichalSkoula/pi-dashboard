@@ -1,5 +1,7 @@
 # pi-dashboard
-Personal project. Dashboard for my Raspberries, showing temperature, pressure and humidity from different places. Available sensors: LM75, DHT11 and BMP180.
+Personal project. Dashboard for my Raspberries, showing temperature, pressure and humidity from different places. Available sensors: LM75, DHT11 and BMP180. 
+
+Live demo: https://pi.skoula.cz
 
 
 ## dashboard 
