@@ -24,15 +24,15 @@
                         <h2>LEDTECH <small>Raspberry Pi 3B+</small></h2>
                         <table class='table'>
                             <tr>
-                                <td><i class="fas fa-fw fa-thermometer-half"></i> Temperature</td>
+                                <td><i class="fas fa-fw fa-thermometer-half"></i> Teplota</td>
                                 <th>{{ ledtech.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech.temp.min }} °C / max {{ ledtech.temp.max }} °C / avg {{ ledtech.temp.avg }} °C</small></th>
                             </tr>
                             <tr>
-                                <td><i class="fas fa-fw fa-cloud-rain"></i> Pressure</td>
+                                <td><i class="fas fa-fw fa-cloud-rain"></i> Tlak</td>
                                 <th>{{ ledtech.pressure | formatKilo }} kPa</th>
                             </tr>
                             <tr>
-                                <td><i class="fas fa-fw fa-tint"></i> Humidity</td>
+                                <td><i class="fas fa-fw fa-tint"></i> Vlhkost</td>
                                 <th>{{ ledtech.humidity }} %</th>
                             </tr>
                             <tr>
@@ -45,7 +45,7 @@
                                 </th>
                             </tr>
                             <tr>
-                                <td>Updated</td>
+                                <td>Aktualizovo</td>
                                 <th>{{ ledtech.updated }}</th>
                             </tr>
                         </table>
@@ -57,19 +57,19 @@
                             <h3>Arduino Outdoor Sensor</h3>
                             <table class='table'>
                                 <tr>
-                                    <td><i class="fas fa-fw fa-thermometer-half"></i> Temperature</td>
+                                    <td><i class="fas fa-fw fa-thermometer-half"></i> Teplota</td>
                                     <th>{{ arduino.temp.actual }} °C <small class='float-right text-muted'>min {{ arduino.temp.min }} °C / max {{ arduino.temp.max }} °C / avg {{ arduino.temp.avg }} °C</small></th>
                                 </tr>
                                 <tr>
-                                    <td><i class="fas fa-fw fa-cloud-rain"></i> Pressure</td>
+                                    <td><i class="fas fa-fw fa-cloud-rain"></i> Tlak</td>
                                     <th>{{ arduino.pressure | formatKilo }} kPa</th>
                                 </tr>
                                 <tr>
-                                    <td><i class="fas fa-fw fa-tint"></i> Humidity</td>
+                                    <td><i class="fas fa-fw fa-tint"></i> Vlhkost</td>
                                     <th>{{ arduino.humidity }} %</th>
                                 </tr>
                                 <tr>
-                                    <td>Updated</td>
+                                    <td>Aktualizovo</td>
                                     <th>{{ arduino.updated }} </th>
                                 </tr>
                             </table>
@@ -79,15 +79,15 @@
                         <h2>LASENA <small>Raspberry Pi Zero W</small></h2>
                         <table class='table'>
                             <tr>
-                                <td><i class="fas fa-fw fa-thermometer-half"></i> Temperature</td>
+                                <td><i class="fas fa-fw fa-thermometer-half"></i> Teplota</td>
                                 <th>{{ lasena.temp.actual }} °C <small class='float-right text-muted'>min {{ lasena.temp.min }} °C / max {{ lasena.temp.max }} °C / avg {{ lasena.temp.avg }} °C</small></th>
                             </tr>
                             <tr>
-                                <td><i class="fas fa-fw fa-cloud-rain"></i> Pressure</td>
+                                <td><i class="fas fa-fw fa-cloud-rain"></i> Tlak</td>
                                 <th>{{ lasena.pressure | formatKilo }} kPa</th>
                             </tr>
                             <tr>
-                                <td><i class="fas fa-fw fa-tint"></i> Humidity</td>
+                                <td><i class="fas fa-fw fa-tint"></i> Vlhkost</td>
                                 <th>{{ lasena.humidity }} %</th>
                             </tr>
                             <tr>
@@ -100,7 +100,7 @@
                                 </th>
                             </tr>
                             <tr>
-                                <td>Updated</td>
+                                <td>Aktualizovo</td>
                                 <th>{{ lasena.updated }} </th>
                             </tr>
                         </table>
@@ -108,6 +108,18 @@
                 </div>
             </div>
         </main>
+        <footer class="footer mt-3 py-3 bg-light">
+            <div class="container">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/MichalSkoula/pi-dashboard"><i class="fab fa-github"></i> GitHub</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.skoula.cz"><i class="fas fa-user"></i> Michal Škoula</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
 
         <script src="node_modules/vue/dist/vue.js"></script>
         <script src="node_modules/axios/dist/axios.min.js"></script>
