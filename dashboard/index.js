@@ -21,8 +21,14 @@ var vm = new Vue({
                 this.arduino = response.data
             ));
             
-            // camera
+            // camera 1
             document.getElementById("ledtech-cam").src = document.getElementById("ledtech-cam-a").href = 'data/ledtech.jpg?t=' + (new Date().getTime());
+            if (typeof this.lightbox.destroy === 'function') {
+                this.lightbox.destroy();
+            }
+            this.lightbox = new SimpleLightbox({elements: 'a.lightbox'});
+            // camera 2
+            document.getElementById("arduino-cam").src = document.getElementById("arduino-cam-a").href = 'data/arduino.jpg?t=' + (new Date().getTime());
             if (typeof this.lightbox.destroy === 'function') {
                 this.lightbox.destroy();
             }
