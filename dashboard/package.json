@@ -21,7 +21,7 @@
     "@popperjs/core": "^2.0.6",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "simple-lightbox": "^2.1.0",
     "vue": "^2.6.11"
   }
