@@ -25,22 +25,22 @@
                         <table class='table'>
                             <tr>
                                 <td><i class="fas fa-fw fa-thermometer-half"></i> Teplota</td>
-                                <th>{{ ledtech.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech.temp.min }} °C / max {{ ledtech.temp.max }} °C / avg {{ ledtech.temp.avg }} °C</small></th>
+                                <th>{{ ledtech_indoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_indoor.temp.min }} °C / max {{ ledtech_indoor.temp.max }} °C / avg {{ ledtech_indoor.temp.avg }} °C</small></th>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-fw fa-cloud-rain"></i> Tlak</td>
-                                <th>{{ ledtech.pressure | formatKilo }} kPa</th>
+                                <th>{{ ledtech_indoor.pressure | formatKilo }} kPa</th>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-fw fa-tint"></i> Vlhkost</td>
-                                <th>{{ ledtech.humidity }} %</th>
+                                <th>{{ ledtech_indoor.humidity }} %</th>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
                                 <th>
-                                    {{ ledtech.cpu_temp }} °C 
+                                    {{ ledtech_indoor.cpu_temp }} °C 
                                     <div class='progress mt-1'>
-                                        <div class='progress-bar' role='progressbar' v-bind:style='{ width: ledtech.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.cpu_load }} %</div>
+                                        <div class='progress-bar' role='progressbar' v-bind:style='{ width: ledtech_indoor.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_indoor.cpu_load }} %</div>
                                     </div>
                                 </th>
                             </tr>
@@ -50,11 +50,11 @@
                             </tr>
                             <tr>
                                 <td>Aktualizováno</td>
-                                <th>{{ ledtech.updated }}</th>
+                                <th>{{ ledtech_indoor.updated }}</th>
                             </tr>
                         </table>
-                        <a class="lightbox" href="data/ledtech.jpg" id="ledtech-cam-a">
-                            <img src="data/ledtech.jpg" class="img-fluid img-thumbnail" id="ledtech-cam">
+                        <a class="lightbox" href="data/ledtech_indoor.jpg" id="ledtech-cam-a">
+                            <img src="data/ledtech_indoor.jpg" class="img-fluid img-thumbnail" id="ledtech-cam">
                         </a>
                     </div>
                     <div class="col mt-3">
@@ -62,15 +62,15 @@
                         <table class='table'>
                             <tr>
                                 <td><i class="fas fa-fw fa-thermometer-half"></i> Teplota</td>
-                                <th>{{ arduino.temp.actual }} °C <small class='float-right text-muted'>min {{ arduino.temp.min }} °C / max {{ arduino.temp.max }} °C / avg {{ arduino.temp.avg }} °C</small></th>
+                                <th>{{ ledtech_outdoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_outdoor.temp.min }} °C / max {{ ledtech_outdoor.temp.max }} °C / avg {{ ledtech_outdoor.temp.avg }} °C</small></th>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-fw fa-cloud-rain"></i> Tlak</td>
-                                <th>{{ arduino.pressure | formatKilo }} kPa</th>
+                                <th>{{ ledtech_outdoor.pressure | formatKilo }} kPa</th>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-fw fa-tint"></i> Vlhkost</td>
-                                <th>{{ arduino.humidity }} %</th>
+                                <th>{{ ledtech_outdoor.humidity }} %</th>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
@@ -87,11 +87,11 @@
                             </tr>
                             <tr>
                                 <td>Aktualizováno</td>
-                                <th>{{ arduino.updated }}</th>
+                                <th>{{ ledtech_outdoor.updated }}</th>
                             </tr>
                         </table>
-                        <a class="lightbox" href="data/arduino.jpg" id="arduino-cam-a">
-                            <img src="data/arduino.jpg" class="img-fluid img-thumbnail" id="arduino-cam">
+                        <a class="lightbox" href="data/ledtech_outdoor.jpg" id="arduino-cam-a">
+                            <img src="data/ledtech_outdoor.jpg" class="img-fluid img-thumbnail" id="arduino-cam">
                         </a>
                     </div>
                     <div class="col mt-3">
