@@ -1,9 +1,29 @@
+// onload
+window.onload = (event) => {
+    document.getElementById('loading').remove();
+};
+// for sure
+setTimeout(() => {
+    if (document.getElementById('loading') !== null) {
+        document.getElementById('loading').remove();
+    }
+}, 3000);
+
+
+
 Vue.filter('formatKilo', function(value) {
     if (!value) {
         return '';
     }
     value = parseFloat(value.toString());
     return (value / 1000).toFixed(2);
+});
+Vue.filter('formatPercent', function(value) {
+    if (!value) {
+        return '';
+    }
+    value = parseFloat(value.toString());
+    return value.toFixed(2);
 });
 
 var vm = new Vue({
@@ -22,13 +42,13 @@ var vm = new Vue({
             ));
             
             // camera 1
-            document.getElementById("ledtech-cam").src = document.getElementById("ledtech-cam-a").href = 'data/ledtech_indoor.jpg?t=' + (new Date().getTime());
+            document.getElementById("ledtech-indoor-cam").src = document.getElementById("ledtech-indoor-cam-a").href = 'data/ledtech_indoor.jpg?t=' + (new Date().getTime());
             if (typeof this.lightbox.destroy === 'function') {
                 this.lightbox.destroy();
             }
             this.lightbox = new SimpleLightbox({elements: 'a.lightbox'});
             // camera 2
-            document.getElementById("arduino-cam").src = document.getElementById("arduino-cam-a").href = 'data/ledtech_outdoor.jpg?t=' + (new Date().getTime());
+            document.getElementById("ledtech-outdoor-cam").src = document.getElementById("ledtech-outdoor-cam-a").href = 'data/ledtech_outdoor.jpg?t=' + (new Date().getTime());
             if (typeof this.lightbox.destroy === 'function') {
                 this.lightbox.destroy();
             }
@@ -52,6 +72,6 @@ var vm = new Vue({
 
         window.setInterval(() => {
             this.updateData();
-        }, 15 * 1000);
+        }, 20 * 1000);
     }
 });

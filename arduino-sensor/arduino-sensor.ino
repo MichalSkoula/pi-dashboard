@@ -18,7 +18,7 @@ void setup() {
     dht11.begin();
 
     while (!Serial); // wait for serial monitor  
-    Serial.begin(9600);
+    Serial.begin(115200);
 }
 
 void loop() {
@@ -28,8 +28,8 @@ void loop() {
     float pressure = (bmp180.readPressure() + 32 * 100);
     float temp3 = dht11.readTemperature();
     float humidity = dht11.readHumidity();
-
-    double moisture = (1 - ((analogRead(A0) - WaterValue) / (AirValue - WaterValue))) * 100;
+    float moisture = analogRead(A0);
+    moisture = (1 - ((moisture - WaterValue) / (AirValue - WaterValue))) * 100;
 
     // json object
     const int capacity = JSON_OBJECT_SIZE(6);

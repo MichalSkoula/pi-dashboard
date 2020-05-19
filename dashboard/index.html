@@ -5,9 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="assets/style.css">
     </head>
     <body>    
+        <div id="loading"><div class="center">Loading</div></div>
+
         <header>
             <div class="navbar navbar-dark bg-dark shadow-sm">
                 <div class="container d-flex justify-content-between">
@@ -19,119 +21,140 @@
         </header>
         <main role="main">
             <div class="container">
-                <div id="app" class="row">
-                    <div class="col mt-3">
-                        <h3>LEDTECH</h3>
-                        <table class='table'>
-                            <tr>
-                                <td><i class="fas fa-fw fa-thermometer-half"></i> Teplota</td>
-                                <th>{{ ledtech_indoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_indoor.temp.min }} °C / max {{ ledtech_indoor.temp.max }} °C / avg {{ ledtech_indoor.temp.avg }} °C</small></th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-cloud-rain"></i> Tlak</td>
-                                <th>{{ ledtech_indoor.pressure | formatKilo }} kPa</th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-tint"></i> Vlhkost</td>
-                                <th>{{ ledtech_indoor.humidity }} %</th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
-                                <th>
-                                    {{ ledtech_indoor.cpu_temp }} °C 
-                                    <div class='progress mt-1'>
-                                        <div class='progress-bar' role='progressbar' v-bind:style='{ width: ledtech_indoor.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_indoor.cpu_load }} %</div>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>Model</td>
-                                <th>Raspberry Pi 3B+</th>
-                            </tr>
-                            <tr>
-                                <td>Aktualizováno</td>
-                                <th>{{ ledtech_indoor.updated }}</th>
-                            </tr>
-                        </table>
-                        <a class="lightbox" href="data/ledtech_indoor.jpg" id="ledtech-cam-a">
-                            <img src="data/ledtech_indoor.jpg" class="img-fluid img-thumbnail" id="ledtech-cam">
-                        </a>
+                <div id="app">
+                    <h1 class="mt-3">LEDTECH PI</h1>
+                    <div class="row mt-2">
+                        <div class="col-lg-6 col-sm-12">
+                            <h3>Interiér</h3>
+                            <div class="clearfix">
+                                <h6 class="float-left">Raspberry Pi 3B+</h6>
+                                <h6 class="float-right">{{ ledtech_indoor.updated }}</h6>
+                            </div>
+
+                            <table class='table table-hover table-sm mt-2'>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-thermometer-half"></i> Vnitřní teplota</td>
+                                    <th colspan="2">{{ ledtech_indoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_indoor.temp.min }} °C / max {{ ledtech_indoor.temp.max }} °C / avg {{ ledtech_indoor.temp.avg }} °C</small></th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-cloud-rain"></i> Atmosferický tlak</td>
+                                    <th colspan="2">{{ ledtech_indoor.pressure | formatKilo }} kPa</th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-tint"></i> Vlhkost vzduchu</td>
+                                    <th colspan="2">{{ ledtech_indoor.humidity }} %</th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-seedling"></i></i> Vlhkost v květináči</td>
+                                    <th colspan="2">{{ ledtech_indoor.moisture | formatPercent }} %</th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
+                                    <th> {{ ledtech_indoor.cpu_temp }} °C </th>
+                                    <th>
+                                        <div class='progress mt-1'>
+                                            <div class='progress-bar' role='progressbar' v-bind:style='{ width: ledtech_indoor.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_indoor.cpu_load }} %</div>
+                                        </div> 
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <figure class="figure">
+                                <a class="lightbox" href="data/ledtech_indoor.jpg" id="ledtech-indoor-cam-a">
+                                    <img src="data/ledtech_indoor.jpg" class="figure-img img-fluid img-thumbnail" id="ledtech-indoor-cam">
+                                </a>
+                                <figcaption class="figure-caption text-right">Aktuální snímek z 3D tiskárny</figcaption>
+                            </figure>
+                        </div>
                     </div>
-                    <div class="col mt-3">
-                        <h3>LEDTECH Exteriér</h3>
-                        <table class='table'>
-                            <tr>
-                                <td><i class="fas fa-fw fa-thermometer-half"></i> Teplota</td>
-                                <th>{{ ledtech_outdoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_outdoor.temp.min }} °C / max {{ ledtech_outdoor.temp.max }} °C / avg {{ ledtech_outdoor.temp.avg }} °C</small></th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-cloud-rain"></i> Tlak</td>
-                                <th>{{ ledtech_outdoor.pressure | formatKilo }} kPa</th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-tint"></i> Vlhkost</td>
-                                <th>{{ ledtech_outdoor.humidity }} %</th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
-                                <th>
-                                    - 
-                                    <div class='progress mt-1 invisible'>
-                                        <div class='progress-bar' role='progressbar' v-bind:style='{ width: 0 + "%" }' aria-valuemin='0' aria-valuemax='100'> 0 %</div>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>Model</td>
-                                <th>Arduino UNO</th>
-                            </tr>
-                            <tr>
-                                <td>Aktualizováno</td>
-                                <th>{{ ledtech_outdoor.updated }}</th>
-                            </tr>
-                        </table>
-                        <a class="lightbox" href="data/ledtech_outdoor.jpg" id="arduino-cam-a">
-                            <img src="data/ledtech_outdoor.jpg" class="img-fluid img-thumbnail" id="arduino-cam">
-                        </a>
+                    <div class="row mt-2">
+                        <div class="col-lg-6 col-sm-12">
+                            <h3>Exteriér</h3>
+                            <div class="clearfix">
+                                <h6 class="float-left">Raspberry Pi 3B+</h6>
+                                <h6 class="float-right">{{ ledtech_outdoor.updated }}</h6>
+                            </div>
+
+                            <table class='table table-hover table-sm mt-2'>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-thermometer-half"></i> Venkovní teplota</td>
+                                    <th colspan="2">{{ ledtech_outdoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_outdoor.temp.min }} °C / max {{ ledtech_outdoor.temp.max }} °C / avg {{ ledtech_outdoor.temp.avg }} °C</small></th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-cloud-rain"></i> Atmosferický tlak</td>
+                                    <th colspan="2">{{ ledtech_outdoor.pressure | formatKilo }} kPa</th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-tint"></i> Vlhkost vzduchu</td>
+                                    <th colspan="2">{{ ledtech_outdoor.humidity }} %</th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
+                                    <th>
+                                        -
+                                    </th>
+                                    <th>
+                                        -
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <figure class="figure">
+                                <a class="lightbox" href="data/ledtech_outdoor.jpg" id="ledtech-outdoor-cam-a">
+                                    <img src="data/ledtech_outdoor.jpg" class="figure-img img-fluid img-thumbnail" id="ledtech-outdoor-cam">
+                                </a>
+                                <figcaption class="figure-caption text-right">Aktuální snímek ptačí budky a úrody</figcaption>
+                            </figure>
+                        </div>
                     </div>
-                    <div class="col mt-3">
-                        <h3>LASENA</h3>
-                        <table class='table'>
-                            <tr>
-                                <td><i class="fas fa-fw fa-thermometer-half"></i> Teplota</td>
-                                <th>{{ lasena.temp.actual }} °C <small class='float-right text-muted'>min {{ lasena.temp.min }} °C / max {{ lasena.temp.max }} °C / avg {{ lasena.temp.avg }} °C</small></th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-cloud-rain"></i> Tlak</td>
-                                <th>{{ lasena.pressure | formatKilo }} kPa</th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-tint"></i> Vlhkost</td>
-                                <th>{{ lasena.humidity }} %</th>
-                            </tr>
-                            <tr>
-                                <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
-                                <th>
-                                    {{ lasena.cpu_temp }} °C 
-                                    <div class='progress mt-1'>
-                                        <div class='progress-bar' role='progressbar' v-bind:style='{ width: lasena.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ lasena.cpu_load }} %</div>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td>Model</td>
-                                <th>Raspberry Pi Zero W</th>
-                            </tr>
-                            <tr>
-                                <td>Aktualizováno</td>
-                                <th>{{ lasena.updated }}</th>
-                            </tr>
-                        </table>
-                    </div>
-                    
-                </div>
+
+                    <hr>
+                    <h1 class="mt-5">LASENA PI</h1>
+                    <div class="row mt-2">
+                        <div class="col-lg-6 col-sm-12">
+                            <h3>Interiér</h3>
+                            <div class="clearfix">
+                                <h6 class="float-left">Raspberry Pi Zero W</h6>
+                                <h6 class="float-right">{{ lasena.updated }}</h6>
+                            </div>
+                            <table class='table table-hover table-sm mt-2'>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-thermometer-half"></i>Vnitřní teplota</td>
+                                    <th>{{ lasena.temp.actual }} °C <small class='float-right text-muted'>min {{ lasena.temp.min }} °C / max {{ lasena.temp.max }} °C / avg {{ lasena.temp.avg }} °C</small></th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-cloud-rain"></i> Atmosferický tlak</td>
+                                    <th>{{ lasena.pressure | formatKilo }} kPa</th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-tint"></i> Vlhkost vzduchu</td>
+                                    <th>{{ lasena.humidity }} %</th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
+                                    <th>
+                                        {{ lasena.cpu_temp }} °C 
+                                        <div class='progress mt-1'>
+                                            <div class='progress-bar' role='progressbar' v-bind:style='{ width: lasena.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ lasena.cpu_load }} %</div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <figure class="figure">
+                                <a class="lightbox" href="assets/default.png">
+                                    <img src="assets/default.png" class="figure-img img-fluid img-thumbnail">
+                                </a>
+                                <figcaption class="figure-caption text-right">Snímek není dostupný</figcaption>
+                            </figure>
+                        </div>
+                    </div>         
             </div>
-        </main>
+        </div>
+    </main>
         <footer class="footer mt-3 py-3 bg-light">
             <div class="container">
                 <ul class="nav">
@@ -150,6 +173,6 @@
         <script src="node_modules/simple-lightbox/dist/simpleLightbox.min.js"></script>
         <link rel="stylesheet" href="node_modules/simple-lightbox/dist/simpleLightbox.min.css">
 
-        <script src="index.js"></script>
+        <script src="assets/index.js"></script>
     </body>
 </html>
