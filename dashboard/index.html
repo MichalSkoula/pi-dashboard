@@ -31,31 +31,42 @@
                                 <h6 class="float-right">{{ ledtech_indoor.updated }}</h6>
                             </div>
 
-                            <table class='table table-hover table-sm mt-2'>
+                            <table class='table table-hover mt-2'>
                                 <tr>
                                     <td><i class="fas fa-fw fa-thermometer-half"></i> Vnitřní teplota</td>
-                                    <th colspan="2">{{ ledtech_indoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_indoor.temp.min }} °C / max {{ ledtech_indoor.temp.max }} °C / avg {{ ledtech_indoor.temp.avg }} °C</small></th>
+                                    <th>{{ ledtech_indoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_indoor.temp.min }} °C / max {{ ledtech_indoor.temp.max }} °C / avg {{ ledtech_indoor.temp.avg }} °C</small></th>
                                 </tr>
                                 <tr>
                                     <td><i class="fas fa-fw fa-cloud-rain"></i> Atmosferický tlak</td>
-                                    <th colspan="2">{{ ledtech_indoor.pressure | formatKilo }} kPa</th>
+                                    <th>{{ ledtech_indoor.pressure | formatKilo }} kPa</th>
                                 </tr>
                                 <tr>
                                     <td><i class="fas fa-fw fa-tint"></i> Vlhkost vzduchu</td>
-                                    <th colspan="2">{{ ledtech_indoor.humidity }} %</th>
+                                    <th>
+                                        <div class='progress'>
+                                            <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: ledtech_indoor.humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_indoor.humidity }} %</div>
+                                        </div> 
+                                    </th>
                                 </tr>
                                 <tr>
                                     <td><i class="fas fa-fw fa-seedling"></i></i> Vlhkost v květináči</td>
-                                    <th colspan="2">{{ ledtech_indoor.moisture | formatPercent }} %</th>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
-                                    <th> {{ ledtech_indoor.cpu_temp }} °C </th>
                                     <th>
-                                        <div class='progress mt-1'>
-                                            <div class='progress-bar' role='progressbar' v-bind:style='{ width: ledtech_indoor.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_indoor.cpu_load }} %</div>
+                                        <div class='progress'>
+                                            <div class='progress-bar progress-bar-striped bg-success' role='progressbar' v-bind:style='{ width: ledtech_indoor.moisture + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_indoor.moisture | formatPercent }} %</div>
                                         </div> 
                                     </th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU vytížení</td>
+                                    <th>
+                                        <div class='progress'>
+                                            <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: ledtech_indoor.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_indoor.cpu_load }} %</div>
+                                        </div> 
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU teplota</td>
+                                    <th> {{ ledtech_indoor.cpu_temp }} °C </th>
                                 </tr>
                             </table>
                         </div>
@@ -76,27 +87,34 @@
                                 <h6 class="float-right">{{ ledtech_outdoor.updated }}</h6>
                             </div>
 
-                            <table class='table table-hover table-sm mt-2'>
+                            <table class='table table-hover mt-2'>
                                 <tr>
                                     <td><i class="fas fa-fw fa-thermometer-half"></i> Venkovní teplota</td>
-                                    <th colspan="2">{{ ledtech_outdoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_outdoor.temp.min }} °C / max {{ ledtech_outdoor.temp.max }} °C / avg {{ ledtech_outdoor.temp.avg }} °C</small></th>
+                                    <th>{{ ledtech_outdoor.temp.actual }} °C <small class='float-right text-muted'>min {{ ledtech_outdoor.temp.min }} °C / max {{ ledtech_outdoor.temp.max }} °C / avg {{ ledtech_outdoor.temp.avg }} °C</small></th>
                                 </tr>
                                 <tr>
                                     <td><i class="fas fa-fw fa-cloud-rain"></i> Atmosferický tlak</td>
-                                    <th colspan="2">{{ ledtech_outdoor.pressure | formatKilo }} kPa</th>
+                                    <th>{{ ledtech_outdoor.pressure | formatKilo }} kPa</th>
                                 </tr>
                                 <tr>
                                     <td><i class="fas fa-fw fa-tint"></i> Vlhkost vzduchu</td>
-                                    <th colspan="2">{{ ledtech_outdoor.humidity }} %</th>
+                                    <th>
+                                        <div class='progress'>
+                                            <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: ledtech_outdoor.humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_outdoor.humidity }} %</div>
+                                        </div> 
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU vytížení</td>
                                     <th>
-                                        -
+                                        <div class='progress'>
+                                            <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: ledtech_indoor.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech_indoor.cpu_load }} %</div>
+                                        </div> 
                                     </th>
-                                    <th>
-                                        -
-                                    </th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU teplota</td>
+                                    <th> {{ ledtech_indoor.cpu_temp }} °C </th>
                                 </tr>
                             </table>
                         </div>
@@ -119,7 +137,7 @@
                                 <h6 class="float-left">Raspberry Pi Zero W</h6>
                                 <h6 class="float-right">{{ lasena.updated }}</h6>
                             </div>
-                            <table class='table table-hover table-sm mt-2'>
+                            <table class='table table-hover mt-2'>
                                 <tr>
                                     <td><i class="fas fa-fw fa-thermometer-half"></i>Vnitřní teplota</td>
                                     <th>{{ lasena.temp.actual }} °C <small class='float-right text-muted'>min {{ lasena.temp.min }} °C / max {{ lasena.temp.max }} °C / avg {{ lasena.temp.avg }} °C</small></th>
@@ -130,16 +148,23 @@
                                 </tr>
                                 <tr>
                                     <td><i class="fas fa-fw fa-tint"></i> Vlhkost vzduchu</td>
-                                    <th>{{ lasena.humidity }} %</th>
+                                    <th>
+                                        <div class='progress'>
+                                            <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: lasena.humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ lasena.humidity }} %</div>
+                                        </div> 
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <td><i class="fas fa-fw fa-microchip"></i> CPU</td>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU vytížení</td>
                                     <th>
-                                        {{ lasena.cpu_temp }} °C 
-                                        <div class='progress mt-1'>
-                                            <div class='progress-bar' role='progressbar' v-bind:style='{ width: lasena.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ lasena.cpu_load }} %</div>
-                                        </div>
+                                        <div class='progress'>
+                                            <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: lasena.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ lasena.cpu_load }} %</div>
+                                        </div> 
                                     </th>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-fw fa-microchip"></i> CPU teplota</td>
+                                    <th> {{ lasena.cpu_temp }} °C </th>
                                 </tr>
                             </table>
                         </div>

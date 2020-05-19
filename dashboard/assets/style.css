@@ -1,5 +1,6 @@
 .progress {
-    height: 1.6em;
+    height: 1.3rem;
+    font-size: 0.8rem;
 }
 
 #loading {
