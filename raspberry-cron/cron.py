@@ -45,16 +45,16 @@ cpuLoad = psutil.cpu_percent()
 print(cpuLoad)
 
 # uses Fswebcam to take picture
-os.system('fswebcam -r 640x480 -d /dev/video0 ' + config.ssh['local_path'] + 'outdoor.jpg') 
-os.system('fswebcam -r 640x480 -d /dev/video2 ' + config.ssh['local_path'] + 'indoor.jpg') 
+os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + config.ssh['local_path'] + 'outdoor.jpg') 
+os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.ssh['local_path'] + 'indoor.jpg') 
 
 # get data from arduino sensors
 count = 0
 max_guesses_allowed = 10
 found = False
 while not found and count < max_guesses_allowed:
-    outdoor = readLastLine(serial.Serial('/dev/ttyACM1', 115200, timeout=3))
-    indoor = readLastLine(serial.Serial('/dev/ttyACM0', 115200, timeout=3))
+    outdoor = readLastLine(serial.Serial(config.android_devices['outdoor_dev'], 115200, timeout=3))
+    indoor = readLastLine(serial.Serial(config.android_devices['indoor_dev'], 115200, timeout=3))
 
     if isJson(outdoor) and isJson(indoor):
         outdoor = json.loads(outdoor)
