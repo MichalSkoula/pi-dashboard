@@ -3,7 +3,6 @@
 #include <Adafruit_BMP085.h>
 #include "DHT.h"
 #include <ArduinoJson.h>
-#include "InterpolationLib.h"
 
 M2M_LM75A lm75a;
 Adafruit_BMP085 bmp180;

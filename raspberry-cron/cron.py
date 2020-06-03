@@ -10,6 +10,7 @@ from paramiko import SSHClient
 from scp import SCPClient
 import paramiko
 from datetime import datetime
+from shutil import copyfile
 
 # functions
 def readLastLine(ser):
@@ -46,34 +47,45 @@ print(cpuLoad)
 
 # uses Fswebcam to take picture
 os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + config.ssh['local_path'] + 'outdoor.jpg') 
-os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.ssh['local_path'] + 'indoor.jpg') 
+os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.ssh['local_path'] + 'indoor.jpg')
 
-# get data from arduino sensors
+# copy also to webserver?
+copyfile(config.ssh['local_path'] + 'outdoor.jpg', config.webserver + 'outdoor.jpg')
+copyfile(config.ssh['local_path'] + 'indoor.jpg', config.webserver + 'indoor.jpg')
+
+# get data from arduino outdoor sensor
 count = 0
 max_guesses_allowed = 10
 found = False
 while not found and count < max_guesses_allowed:
     outdoor = readLastLine(serial.Serial(config.android_devices['outdoor_dev'], 115200, timeout=3))
-    indoor = readLastLine(serial.Serial(config.android_devices['indoor_dev'], 115200, timeout=3))
-
-    if isJson(outdoor) and isJson(indoor):
+    if isJson(outdoor):
         outdoor = json.loads(outdoor)
         print(outdoor)
-        indoor = json.loads(indoor)
-        print(indoor)
-
         found = True
-
-    print("wrong")
+    print("outdoor wrong")
     count += 1
-
 if found == False:
     exit()
+
+# get data from arduino indoor sensor
+count = 0
+found = False
+while not found and count < max_guesses_allowed:
+    indoor = readLastLine(serial.Serial(config.android_devices['indoor_dev'], 115200, timeout=3))
+    if isJson(indoor):
+        indoor = json.loads(indoor)
+        print(indoor)
+        found = True
+    print("indoor wrong")
+    count += 1
+if found == False:
+    exit()
+
 
 # average 
 indoorTemp = (indoor['temp1'] + indoor['temp2'] + indoor['temp3']) / 3
 outdoorTemp = (outdoor['temp1'] + outdoor['temp2'] + outdoor['temp3']) / 3
-
 
 # save to DB
 mydb = mysql.connector.connect(

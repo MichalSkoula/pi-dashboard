@@ -23,3 +23,4 @@ cameras = dict(
     outdoor_cam = '/dev/v4l/by-id/usb-Generic_USB2.0_PC_CAMERA-video-index0',
 )
 
+webserver = '/var/www/html/'
