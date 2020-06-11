@@ -62,10 +62,13 @@ var vm = new Vue({
     data: {
         ledtech: {
             indoor_temp: {},
-            outdoor_temp: {}
+            outdoor_temp: {},
+            indoor_pressure: {},
+            outdoor_pressure: {}
         },
         lasena: {
-            temp: {}
+            indoor_temp: {},
+            indoor_pressure: {}
         },
         lightbox: ''
     },

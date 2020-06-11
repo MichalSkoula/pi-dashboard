@@ -97,14 +97,15 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor(dictionary=True)
 sql = """
-    INSERT INTO log (indoor_temp, indoor_pressure, indoor_humidity, indoor_moisture, outdoor_temp, outdoor_pressure, outdoor_humidity, cpu_temp, cpu_load, memory) 
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    INSERT INTO log (indoor_temp, indoor_pressure, indoor_humidity, indoor_moisture, indoor_light, outdoor_temp, outdoor_pressure, outdoor_humidity, cpu_temp, cpu_load, memory) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 val = (
     indoorTemp,
     indoor['pressure'],
     indoor['humidity'],
     indoor['moisture'],
+    indoor['light'],
     outdoorTemp,
     outdoor['pressure'],
     outdoor['humidity'],
@@ -123,31 +124,48 @@ mycursor.execute("""
         AVG(indoor_temp) AS avg_indoor_temp,
         MIN(outdoor_temp) AS min_outdoor_temp, 
         MAX(outdoor_temp) AS max_outdoor_temp,
-        AVG(outdoor_temp) AS avg_outdoor_temp
+        AVG(outdoor_temp) AS avg_outdoor_temp,
+        MIN(indoor_pressure) AS min_indoor_pressure, 
+        MAX(indoor_pressure) AS max_indoor_pressure,
+        AVG(indoor_pressure) AS avg_indoor_pressure,
+        MIN(outdoor_pressure) AS min_outdoor_pressure, 
+        MAX(outdoor_pressure) AS max_outdoor_pressure,
+        AVG(outdoor_pressure) AS avg_outdoor_pressure
     FROM log 
     WHERE DATE(inserted_at) = DATE(NOW());
 """)
-averageTemps = mycursor.fetchone()
-print(averageTemps)
+averageToday = mycursor.fetchone()
+print(averageToday)
 
 # save to JSON 
 data = {
     'indoor_temp': {
         'actual': indoorTemp,
-        'min': averageTemps['min_indoor_temp'],
-        'max': averageTemps['max_indoor_temp'],
-        'avg': averageTemps['avg_indoor_temp'],
+        'min': averageToday['min_indoor_temp'],
+        'max': averageToday['max_indoor_temp'],
+        'avg': averageToday['avg_indoor_temp'],
     },
-    'indoor_pressure': indoor['pressure'],
+    'indoor_pressure': {
+        'actual': indoor['pressure'],
+        'min': averageToday['min_indoor_pressure'],
+        'max': averageToday['max_indoor_pressure'],
+        'avg': averageToday['avg_indoor_pressure'],
+    },
     'indoor_humidity': indoor['humidity'],
     'indoor_moisture': indoor['moisture'],
+    'indoor_light': indoor['light'],
     'outdoor_temp': {
         'actual': outdoorTemp,
-        'min': averageTemps['min_outdoor_temp'],
-        'max': averageTemps['max_outdoor_temp'],
-        'avg': averageTemps['avg_outdoor_temp'],
+        'min': averageToday['min_outdoor_temp'],
+        'max': averageToday['max_outdoor_temp'],
+        'avg': averageToday['avg_outdoor_temp'],
     },
-    'outdoor_pressure': outdoor['pressure'],
+    'outdoor_pressure': {
+        'actual': outdoor['pressure'],
+        'min': averageToday['min_outdoor_pressure'],
+        'max': averageToday['max_outdoor_pressure'],
+        'avg': averageToday['avg_outdoor_pressure'],
+    },
     'outdoor_humidity': outdoor['humidity'],
     'cpu_temp': cpuTemp,
     'cpu_load': cpuLoad,

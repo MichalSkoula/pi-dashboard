@@ -11,6 +11,9 @@ DHT dht11(4, DHT11);
 const double AirValue = 630;   //you need to replace this value with Value_1
 const double WaterValue = 260;  //you need to replace this value with Value_2
 
+const double DarkValue = 526;   //you need to replace this value with Value_1
+const double LightValue = 4;  //you need to replace this value with Value_2
+
 void setup() {
     lm75a.begin();
     bmp180.begin();
@@ -29,9 +32,12 @@ void loop() {
     float humidity = dht11.readHumidity();
     float moisture = analogRead(A0);
     moisture = (1 - ((moisture - WaterValue) / (AirValue - WaterValue))) * 100;
+    float light = analogRead(A1);
+    Serial.println(analogRead(A1));
+    light = (1 - ((light - LightValue) / (DarkValue - LightValue))) * 100;
 
     // json object
-    const int capacity = JSON_OBJECT_SIZE(6);
+    const int capacity = JSON_OBJECT_SIZE(7);
     StaticJsonDocument<capacity> json;
 
     json["temp1"] = temp1;
@@ -40,6 +46,7 @@ void loop() {
     json["pressure"] = pressure;
     json["humidity"] = humidity;
     json["moisture"] = moisture;
+    json["light"] = light;
 
     serializeJson(json, Serial);
 
