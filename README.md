@@ -20,3 +20,5 @@ MySQL table to save data.
 
 ### sketch.fzz + sketch.png
 How to connect it.
+
+![image](https://github.com/MichalSkoula/pi-dashboard/blob/master/hardware/sketch.png)
