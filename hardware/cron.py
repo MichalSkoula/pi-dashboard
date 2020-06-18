@@ -45,6 +45,11 @@ print(memory)
 cpuLoad = psutil.cpu_percent()
 print(cpuLoad)
 
+# get HDD usage 
+hdd = psutil.disk_usage('/')
+hddUsage = float(hdd.used) / float(hdd.total) * 100
+print(hddUsage)
+
 # uses Fswebcam to take picture
 os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + config.ssh['local_path'] + 'outdoor.jpg') 
 os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.ssh['local_path'] + 'indoor.jpg')
@@ -97,8 +102,8 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor(dictionary=True)
 sql = """
-    INSERT INTO log (indoor_temp, indoor_pressure, indoor_humidity, indoor_moisture, indoor_light, outdoor_temp, outdoor_pressure, outdoor_humidity, cpu_temp, cpu_load, memory) 
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    INSERT INTO log (indoor_temp, indoor_pressure, indoor_humidity, indoor_moisture, indoor_light, outdoor_temp, outdoor_pressure, outdoor_humidity, cpu_temp, cpu_load, memory, hdd) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 val = (
     indoorTemp,
@@ -111,7 +116,8 @@ val = (
     outdoor['humidity'],
     cpuTemp,
     cpuLoad,
-    memory
+    memory,
+    hddUsage
 )
 mycursor.execute(sql, val)
 mydb.commit()
@@ -170,6 +176,7 @@ data = {
     'cpu_temp': cpuTemp,
     'cpu_load': cpuLoad,
     'memory': memory,
+    'hdd': hddUsage,
     'updated': datetime
 }
 

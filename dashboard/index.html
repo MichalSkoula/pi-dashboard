@@ -49,6 +49,15 @@
                                 </th>
                             </tr>
                             <tr>
+                                <td><i class="fas fa-hdd"></i></td>
+                                <td>HDD využití</td>
+                                <th>
+                                    <div class='progress'>
+                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: ledtech.hdd + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.hdd | formatNumber }} %</div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
                                 <td><i class="fas fa-fw fa-microchip"></i></td>
                                 <td>CPU vytížení</td>
                                 <th>

@@ -21,8 +21,9 @@ CREATE TABLE `log` (
   `cpu_temp` float NOT NULL DEFAULT 0,
   `cpu_load` float NOT NULL DEFAULT 0,
   `memory` float NOT NULL DEFAULT 0,
+  `hdd` float NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- 2020-06-11 12:27:23
+-- 2020-06-18 11:38:38
