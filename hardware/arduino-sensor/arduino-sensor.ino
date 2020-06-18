@@ -4,15 +4,24 @@
 #include "DHT.h"
 #include <ArduinoJson.h>
 
+// config --------------------------
+// PINs
+int moisturePin = A2;
+int lightPin = A1;
+int humidityPin = 4;
+
+// moisture
+const double AirValue = 630;
+const double WaterValue = 260;
+// light
+const double DarkValue = 840;
+const double LightValue = 2;
+
+// sensors -------------------------
 M2M_LM75A lm75a;
 Adafruit_BMP085 bmp180;
-DHT dht11(4, DHT11);
+DHT dht11(humidityPin, DHT11);
 
-const double AirValue = 630;   //you need to replace this value with Value_1
-const double WaterValue = 260;  //you need to replace this value with Value_2
-
-const double DarkValue = 526;   //you need to replace this value with Value_1
-const double LightValue = 4;  //you need to replace this value with Value_2
 
 void setup() {
     lm75a.begin();
@@ -30,12 +39,14 @@ void loop() {
     float pressure = (bmp180.readPressure() + 32 * 100);
     float temp3 = dht11.readTemperature();
     float humidity = dht11.readHumidity();
-    float moisture = analogRead(A0);
+    
+    float moisture = analogRead(moisturePin);
     moisture = (1 - ((moisture - WaterValue) / (AirValue - WaterValue))) * 100;
-    float light = analogRead(A1);
-    Serial.println(analogRead(A1));
+    
+    float light = analogRead(lightPin);
+    Serial.println(light);
     light = (1 - ((light - LightValue) / (DarkValue - LightValue))) * 100;
-
+  
     // json object
     const int capacity = JSON_OBJECT_SIZE(7);
     StaticJsonDocument<capacity> json;

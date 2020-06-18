@@ -7,8 +7,16 @@ Live demo: https://pi.skoula.cz
 ## dashboard 
 Vue application - frontend. Fetch JSON from webserver, show it and repeat.
 
-## raspberry-cron 
+## hardware
+
+### arduino-sensor
+Arduino connected to Raspberry, sending JSON via serial connection. 
+
+### cron.py + config.py
 Python script to fetch data from sensors, save to database and upload JSON to remote webserver.
 
-## arduino-sensor
-Arduino connected to Raspberry, sending JSON via serial connection. 
+### log.sql 
+MySQL table to save data.
+
+### sketch.fzz + sketch.png
+How to connect it.
