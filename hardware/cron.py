@@ -51,12 +51,8 @@ hddUsage = float(hdd.used) / float(hdd.total) * 100
 print(hddUsage)
 
 # uses Fswebcam to take picture
-os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + config.ssh['local_path'] + 'outdoor.jpg') 
-os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.ssh['local_path'] + 'indoor.jpg')
-
-# copy also to webserver?
-copyfile(config.ssh['local_path'] + 'outdoor.jpg', config.webserver + 'outdoor.jpg')
-copyfile(config.ssh['local_path'] + 'indoor.jpg', config.webserver + 'indoor.jpg')
+os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + config.webserver + '/outdoor.jpg') 
+os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.webserver + '/indoor.jpg')
 
 # get data from arduino outdoor sensor
 count = 0
@@ -180,15 +176,5 @@ data = {
     'updated': datetime
 }
 
-with open(config.ssh['local_path'] + 'data.json', 'w') as f:
+with open(config.webserver + '/data.json', 'w') as f:
     json.dump(data, f)
-
-# upload it 
-ssh = SSHClient()
-ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh.connect(config.ssh['host'], username=config.ssh['user'], password=config.ssh['password'])
-
-with SCPClient(ssh.get_transport()) as scp:
-    scp.put(config.ssh['local_path'] + 'data.json', config.ssh['remote_path'] + 'data.json')
-    scp.put(config.ssh['local_path'] + 'outdoor.jpg', config.ssh['remote_path'] + 'outdoor.jpg')
-    scp.put(config.ssh['local_path'] + 'indoor.jpg', config.ssh['remote_path'] + 'indoor.jpg')
