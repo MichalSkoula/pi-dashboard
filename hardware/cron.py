@@ -33,7 +33,7 @@ def isJson(myjson):
 while True:
     # get date 
     now = datetime.now()
-    datetime = now.strftime("%d. %m. %Y %H:%M:%S")
+    datetimeStr = now.strftime("%d. %m. %Y %H:%M:%S")
 
     # get CPU temp
     cpuTemp = CPUTemperature().temperature
@@ -175,7 +175,7 @@ while True:
         'cpu_load': cpuLoad,
         'memory': memory,
         'hdd': hddUsage,
-        'updated': datetime
+        'updated': datetimeStr
     }
 
     with open(config.webserver + '/data.json', 'w') as f:
