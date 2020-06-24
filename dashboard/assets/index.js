@@ -41,9 +41,6 @@ var vm = new Vue({
             axios.get('data/data.json').then(response => (
                 this.ledtech = response.data
             ));
-            axios.get('data/lasena.json').then(response => (
-                this.lasena = response.data
-            ));
             
             // camera 1
             document.getElementById("ledtech-indoor-cam").src = document.getElementById("ledtech-indoor-cam-a").href = 'data/indoor.jpg?t=' + (new Date().getTime());
@@ -65,10 +62,6 @@ var vm = new Vue({
             outdoor_temp: {},
             indoor_pressure: {},
             outdoor_pressure: {}
-        },
-        lasena: {
-            indoor_temp: {},
-            indoor_pressure: {}
         },
         lightbox: ''
     },
