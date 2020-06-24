@@ -6,9 +6,6 @@ import serial
 import mysql.connector
 import config
 import json
-from paramiko import SSHClient
-from scp import SCPClient
-import paramiko
 from datetime import datetime
 from shutil import copyfile
 import time
