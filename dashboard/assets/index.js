@@ -77,6 +77,6 @@ var vm = new Vue({
 
         window.setInterval(() => {
             this.updateData();
-        }, 5 * 1000);
+        }, 10 * 1000);
     }
 });
