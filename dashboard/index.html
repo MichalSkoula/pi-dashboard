@@ -10,9 +10,6 @@
 </head>
 
 <body>
-    <div id="loading">
-        <div class="center">Loading</div>
-    </div>
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
             <div class="container d-flex justify-content-between">
@@ -37,14 +34,14 @@
                             <tr>
                                 <td><i class="far fa-clock"></i></td>
                                 <td>Aktualizace</td>
-                                <th>{{ ledtech.updated }}</th>
+                                <th>{{ json.updated }}</th>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-memory"></i></td>
                                 <td>RAM využití</td>
                                 <th>
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: ledtech.memory + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.memory | formatNumber }} %</div>
+                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: json.memory + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.memory | formatNumber }} %</div>
                                     </div>
                                 </th>
                             </tr>
@@ -53,7 +50,7 @@
                                 <td>HDD využití</td>
                                 <th>
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: ledtech.hdd + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.hdd | formatNumber }} %</div>
+                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: json.hdd + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.hdd | formatNumber }} %</div>
                                     </div>
                                 </th>
                             </tr>
@@ -62,22 +59,22 @@
                                 <td>CPU vytížení</td>
                                 <th>
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: ledtech.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.cpu_load | formatNumber }} %</div>
+                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: json.cpu_load + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.cpu_load | formatNumber }} %</div>
                                     </div>
                                 </th>
                             </tr>
                             <tr>
                                 <td><i class="fas fa-thermometer"></i></td>
                                 <td>CPU teplota</td>
-                                <th> {{ ledtech.cpu_temp | formatNumber }} °C </th>
+                                <th> {{ json.cpu_temp | formatNumber }} °C </th>
                             </tr>
                         </table>
                     </div>
                     <div class="col-lg-4 col-sm-12">
                         <h2>Interiér</h2>
                         <figure class="figure">
-                            <a class="lightbox" href="data/indoor.jpg" id="ledtech-indoor-cam-a">
-                                <img src="data/indoor.jpg" class="figure-img img-fluid img-thumbnail" id="ledtech-indoor-cam">
+                            <a target="_blank" :href="settings.indoor_cam_url" id="indoor-cam-a">
+                                <img :src="settings.indoor_cam_url" class="figure-img img-fluid img-thumbnail" id="indoor-cam">
                             </a>
                             <figcaption class="figure-caption text-right">Aktuální snímek z 3D tiskárny</figcaption>
                         </figure>
@@ -86,13 +83,13 @@
                                 <td><i class="fas fa-fw fa-thermometer-half"></i></td>
                                 <td>Vnitřní teplota</td>
                                 <th>
-                                    {{ ledtech.indoor_temp.actual | formatPercent }} °C
+                                    {{ json.indoor_temp.actual | formatPercent }} °C
                                 </th>
                                 <th>
                                     <small class='float-right text-right text-muted'>
-                                        <i class="fas fa-chevron-down"></i>&nbsp;{{ ledtech.indoor_temp.min | formatPercent }}<br>
-                                        <i class="fas fa-wave-square"></i>&nbsp;{{ ledtech.indoor_temp.avg | formatPercent }}<br>
-                                        <i class="fas fa-chevron-up"></i>&nbsp;{{ ledtech.indoor_temp.max | formatPercent }}
+                                        <i class="fas fa-chevron-down"></i>&nbsp;{{ json.indoor_temp.min | formatPercent }}<br>
+                                        <i class="fas fa-wave-square"></i>&nbsp;{{ json.indoor_temp.avg | formatPercent }}<br>
+                                        <i class="fas fa-chevron-up"></i>&nbsp;{{ json.indoor_temp.max | formatPercent }}
                                     </small>
                                 </th>
                             </tr>
@@ -100,13 +97,13 @@
                                 <td><i class="fas fa-fw fa-cloud-rain"></i></td>
                                 <td>Atmosferický tlak</td>
                                 <th>
-                                    {{ ledtech.indoor_pressure.actual | formatKilo }} kPa
+                                    {{ json.indoor_pressure.actual | formatKilo }} kPa
                                 </th>
                                 <th>
                                     <small class='float-right text-right text-muted'>
-                                        <i class="fas fa-chevron-down"></i>&nbsp;{{ ledtech.indoor_pressure.min | formatKilo }}<br>
-                                        <i class="fas fa-wave-square"></i>&nbsp;{{ ledtech.indoor_pressure.avg | formatKilo }}<br>
-                                        <i class="fas fa-chevron-up"></i>&nbsp;{{ ledtech.indoor_pressure.max | formatKilo }}
+                                        <i class="fas fa-chevron-down"></i>&nbsp;{{ json.indoor_pressure.min | formatKilo }}<br>
+                                        <i class="fas fa-wave-square"></i>&nbsp;{{ json.indoor_pressure.avg | formatKilo }}<br>
+                                        <i class="fas fa-chevron-up"></i>&nbsp;{{ json.indoor_pressure.max | formatKilo }}
                                     </small>
                                 </th>
                             </tr>
@@ -115,7 +112,7 @@
                                 <td>Vlhkost vzduchu</td>
                                 <th colspan="2">
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: ledtech.indoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.indoor_humidity | formatNumber}} %</div>
+                                        <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.indoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_humidity | formatNumber}} %</div>
                                     </div>
                                 </th>
                             </tr>
@@ -124,7 +121,7 @@
                                 <td>Vlhkost palmy</td>
                                 <th colspan="2">
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped bg-success' role='progressbar' v-bind:style='{ width: ledtech.indoor_moisture + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.indoor_moisture | formatNumber }} %</div>
+                                        <div class='progress-bar progress-bar-striped bg-success' role='progressbar' v-bind:style='{ width: json.indoor_moisture + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_moisture | formatNumber }} %</div>
                                     </div>
                                 </th>
                             </tr>
@@ -133,7 +130,7 @@
                                 <td>Světlo</td>
                                 <th colspan="2">
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped bg-warning' role='progressbar' v-bind:style='{ width: ledtech.indoor_light + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.indoor_light | formatNumber }} %</div>
+                                        <div class='progress-bar progress-bar-striped bg-warning' role='progressbar' v-bind:style='{ width: json.indoor_light + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_light | formatNumber }} %</div>
                                     </div>
                                 </th>
                             </tr>
@@ -142,8 +139,8 @@
                     <div class="col-lg-4 col-sm-12">
                         <h2>Exteriér</h2>
                         <figure class="figure">
-                            <a class="lightbox" href="data/ledtech.outdoor_jpg" id="ledtech-outdoor-cam-a">
-                                <img src="data/ledtech.outdoor_jpg" class="figure-img img-fluid img-thumbnail" id="ledtech-outdoor-cam">
+                            <a target="_blank" :href="settings.outdoor_cam_url" id="outdoor-cam-a">
+                                <img :src="settings.outdoor_cam_url" class="figure-img img-fluid img-thumbnail" id="outdoor-cam">
                             </a>
                             <figcaption class="figure-caption text-right">Aktuální snímek ptačí budky a úrody</figcaption>
                         </figure>
@@ -152,11 +149,11 @@
                                 <td><i class="fas fa-fw fa-thermometer-half"></i></td>
                                 <td>Venkovní teplota</td>
                                 <th>
-                                    {{ ledtech.outdoor_temp.actual | formatPercent }} °C
+                                    {{ json.outdoor_temp.actual | formatPercent }} °C
                                     <small class='float-right text-right text-muted'>
-                                        <i class="fas fa-chevron-down"></i>&nbsp;{{ ledtech.outdoor_temp.min | formatPercent }}<br>
-                                        <i class="fas fa-wave-square"></i>&nbsp;{{ ledtech.outdoor_temp.avg | formatPercent }}<br>
-                                        <i class="fas fa-chevron-up"></i>&nbsp;{{ ledtech.outdoor_temp.max | formatPercent }}
+                                        <i class="fas fa-chevron-down"></i>&nbsp;{{ json.outdoor_temp.min | formatPercent }}<br>
+                                        <i class="fas fa-wave-square"></i>&nbsp;{{ json.outdoor_temp.avg | formatPercent }}<br>
+                                        <i class="fas fa-chevron-up"></i>&nbsp;{{ json.outdoor_temp.max | formatPercent }}
                                     </small>
                                 </th>
                             </tr>
@@ -164,11 +161,11 @@
                                 <td><i class="fas fa-fw fa-cloud-rain"></i></td>
                                 <td>Atmosferický tlak</td>
                                 <th>
-                                    {{ ledtech.outdoor_pressure.actual | formatKilo }} kPa
+                                    {{ json.outdoor_pressure.actual | formatKilo }} kPa
                                     <small class='float-right text-right text-muted'>
-                                        <i class="fas fa-chevron-down"></i>&nbsp;{{ ledtech.outdoor_pressure.min | formatKilo }}<br>
-                                        <i class="fas fa-wave-square"></i>&nbsp;{{ ledtech.outdoor_pressure.avg | formatKilo }}<br>
-                                        <i class="fas fa-chevron-up"></i>&nbsp;{{ ledtech.outdoor_pressure.max | formatKilo }}
+                                        <i class="fas fa-chevron-down"></i>&nbsp;{{ json.outdoor_pressure.min | formatKilo }}<br>
+                                        <i class="fas fa-wave-square"></i>&nbsp;{{ json.outdoor_pressure.avg | formatKilo }}<br>
+                                        <i class="fas fa-chevron-up"></i>&nbsp;{{ json.outdoor_pressure.max | formatKilo }}
                                     </small>
                                 </th>
                             </tr>
@@ -177,7 +174,7 @@
                                 <td>Vlhkost vzduchu</td>
                                 <th>
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: ledtech.outdoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ ledtech.outdoor_humidity }} %</div>
+                                        <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.outdoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.outdoor_humidity }} %</div>
                                     </div>
                                 </th>
                             </tr>

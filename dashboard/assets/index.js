@@ -1,16 +1,8 @@
-// onload
-window.onload = (event) => {
-    document.getElementById('loading').remove();
-};
-// for sure
-setTimeout(() => {
-    if (document.getElementById('loading') !== null) {
-        document.getElementById('loading').remove();
-    }
-}, 3000);
+// settings 
+var use_motion = true; // otherwise, use images from fswebcam
 
 
-
+// filters
 Vue.filter('formatKilo', function(value) {
     if (!value) {
         return '';
@@ -39,31 +31,27 @@ var vm = new Vue({
         updateData: function(event) {
             // json
             axios.get('data/data.json').then(response => (
-                this.ledtech = response.data
+                this.json = response.data
             ));
             
-            // camera 1
-            document.getElementById("ledtech-indoor-cam").src = document.getElementById("ledtech-indoor-cam-a").href = 'data/indoor.jpg?t=' + (new Date().getTime());
-            if (typeof this.lightbox.destroy === 'function') {
-                this.lightbox.destroy();
+            // if not using motion, update camera images
+            if (!use_motion) {
+                document.getElementById('indoor-cam').src = document.getElementById('indoor-cam-a').href = this.settings.indoor_cam_url + 't=' + (new Date().getTime());
+                document.getElementById('outdoor-cam').src = document.getElementById('outdoor-cam-a').href = this.settings.outdoor_cam_url + '?t=' + (new Date().getTime());
             }
-            this.lightbox = new SimpleLightbox({elements: 'a.lightbox'});
-            // camera 2
-            document.getElementById("ledtech-outdoor-cam").src = document.getElementById("ledtech-outdoor-cam-a").href = 'data/outdoor.jpg?t=' + (new Date().getTime());
-            if (typeof this.lightbox.destroy === 'function') {
-                this.lightbox.destroy();
-            }
-            this.lightbox = new SimpleLightbox({elements: 'a.lightbox'});
         }
     },
     data: {
-        ledtech: {
+        json: {
             indoor_temp: {},
             outdoor_temp: {},
             indoor_pressure: {},
             outdoor_pressure: {}
         },
-        lightbox: ''
+        settings: {
+            indoor_cam_url: use_motion ? location.href.replace(/\/$/, "") + ':8081' : 'data/indoor.jpg',
+            outdoor_cam_url: use_motion ? location.href.replace(/\/$/, "") + ':8082' : 'data/outdoor.jpg'
+        }
     },
     mounted: function() {
         this.updateData();

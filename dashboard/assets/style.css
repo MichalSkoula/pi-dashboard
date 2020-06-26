@@ -2,27 +2,3 @@
     height: 1.3rem;
     font-size: 0.8rem;
 }
-
-#loading {
-    position:fixed; 
-    height:100%; 
-    width:100%; 
-    overflow:hidden; 
-    top:0; 
-    left:0;
-    background-color: white;
-    text-align: center;
-    z-index: 5000;
-    opacity: 0.9;
-}
-
-#loading .center {
-    position: absolute;
-    width: 100px;
-    height: 50px;
-    top: 50%;
-    left: 50%;
-    margin-left: -50px; /* margin is -0.5 * dimension */
-    margin-top: -25px; 
-    font-size: 2rem;
-}​
