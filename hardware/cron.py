@@ -49,9 +49,9 @@ while True:
     hddUsage = float(hdd.used) / float(hdd.total) * 100
     print(hddUsage)
 
-    # uses Fswebcam to take picture
-    os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + config.webserver + '/outdoor.jpg') 
-    os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.webserver + '/indoor.jpg')
+    # use Fswebcam to take picture - only if not using motion streams
+    #os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + config.webserver + '/outdoor.jpg') 
+    #os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.webserver + '/indoor.jpg')
 
     # get data from arduino outdoor sensor
     count = 0
