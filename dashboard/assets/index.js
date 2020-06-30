@@ -1,5 +1,5 @@
 // settings 
-var use_motion = true; // otherwise, use images from fswebcam
+var use_motion = false; // otherwise, use images from fswebcam
 
 
 // filters
@@ -36,7 +36,7 @@ var vm = new Vue({
             
             // if not using motion, update camera images
             if (!use_motion) {
-                document.getElementById('indoor-cam').src = document.getElementById('indoor-cam-a').href = this.settings.indoor_cam_url + 't=' + (new Date().getTime());
+                document.getElementById('indoor-cam').src = document.getElementById('indoor-cam-a').href = this.settings.indoor_cam_url + '?t=' + (new Date().getTime());
                 document.getElementById('outdoor-cam').src = document.getElementById('outdoor-cam-a').href = this.settings.outdoor_cam_url + '?t=' + (new Date().getTime());
             }
         }
