@@ -1,3 +1,4 @@
-dashboard/node_modules
-dashboard/data/*
-!dashboard/data/.gitkeep 
+web-dashboard/node_modules
+web-dashboard/data/*
+web-dashboard/data
+!web-dashboard/data/.gitkeep 
