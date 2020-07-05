@@ -1,3 +1,4 @@
+# This Python file uses the following encoding: utf-8
 #!/usr/bin/env python
 from gpiozero import CPUTemperature
 import psutil
@@ -9,6 +10,7 @@ import json
 from datetime import datetime
 from shutil import copyfile
 import time
+import plotly.express as px
 
 # functions
 def readLastLine(ser):
@@ -26,6 +28,20 @@ def isJson(myjson):
     except ValueError as e:
         return False
     return True
+
+def generateGraph(what, title):
+    cursor = mydb.cursor()
+    cursor.execute('select ' + what + ', inserted_at from log WHERE DATE(inserted_at) = DATE(NOW());');
+    rows = cursor.fetchall()
+
+    xs = []
+    ys = []
+    for row in rows:
+        ys.append(row[0])
+        xs.append(row[1])
+    
+    fig = px.line(x=xs, y=ys, title=title)
+    fig.write_html(config.webserver + '/' + what + '.html', auto_open=True)
 
 while True:
     # get date 
@@ -81,7 +97,6 @@ while True:
         count += 1
     if found == False:
         exit()
-
 
     # average 
     indoorTemp = (indoor['temp1'] + indoor['temp2'] + indoor['temp3']) / 3
@@ -174,8 +189,11 @@ while True:
         'hdd': hddUsage,
         'updated': datetimeStr
     }
-
     with open(config.webserver + '/data.json', 'w') as f:
         json.dump(data, f)
+
+    # process graphs
+    generateGraph('indoor_temp', "Vnitřní teplota");
+    generateGraph('outdoor_temp', "Venkovní teplota");
 
     time.sleep(5)

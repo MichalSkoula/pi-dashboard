@@ -73,7 +73,7 @@
                     <div class="col-lg-4 col-sm-12">
                         <h2>Interiér</h2>
                         <figure class="figure">
-                            <a target="_blank" :href="settings.indoor_cam_url" id="indoor-cam-a">
+                            <a target="_blank" :href="settings.indoor_cam_url" id="indoor-cam-a" data-fancybox="indoor">
                                 <img :src="settings.indoor_cam_url" class="figure-img img-fluid img-thumbnail" id="indoor-cam">
                             </a>
                             <figcaption class="figure-caption text-right">Aktuální snímek z 3D tiskárny</figcaption>
@@ -87,6 +87,9 @@
                                 </th>
                                 <th>
                                     <small class='float-right text-right text-muted'>
+                                        <a href="data/indoor_temp.html" data-type="iframe" data-fancybox="indoor_temp" class="graph" data-graph-type="indoor_temp">
+                                            <i class="fas fa-chart-line"></i>&nbsp;Grafy
+                                        </a><br>
                                         <i class="fas fa-chevron-down"></i>&nbsp;{{ json.indoor_temp.min | formatPercent }}<br>
                                         <i class="fas fa-wave-square"></i>&nbsp;{{ json.indoor_temp.avg | formatPercent }}<br>
                                         <i class="fas fa-chevron-up"></i>&nbsp;{{ json.indoor_temp.max | formatPercent }}
@@ -139,7 +142,7 @@
                     <div class="col-lg-4 col-sm-12">
                         <h2>Exteriér</h2>
                         <figure class="figure">
-                            <a target="_blank" :href="settings.outdoor_cam_url" id="outdoor-cam-a">
+                            <a target="_blank" :href="settings.outdoor_cam_url" id="outdoor-cam-a" data-fancybox="outdoor">
                                 <img :src="settings.outdoor_cam_url" class="figure-img img-fluid img-thumbnail" id="outdoor-cam">
                             </a>
                             <figcaption class="figure-caption text-right">Aktuální snímek ptačí budky a úrody</figcaption>
@@ -151,6 +154,9 @@
                                 <th>
                                     {{ json.outdoor_temp.actual | formatPercent }} °C
                                     <small class='float-right text-right text-muted'>
+                                        <a href="data/outdoor_temp.html" data-type="iframe" data-fancybox="outdoor_temp" class="graph" data-graph-type="indoor_temp">
+                                            <i class="fas fa-chart-line"></i>&nbsp;Grafy
+                                        </a><br>
                                         <i class="fas fa-chevron-down"></i>&nbsp;{{ json.outdoor_temp.min | formatPercent }}<br>
                                         <i class="fas fa-wave-square"></i>&nbsp;{{ json.outdoor_temp.avg | formatPercent }}<br>
                                         <i class="fas fa-chevron-up"></i>&nbsp;{{ json.outdoor_temp.max | formatPercent }}
@@ -196,10 +202,11 @@
             </ul>
         </div>
     </footer>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/vue/dist/vue.js"></script>
     <script src="node_modules/axios/dist/axios.min.js"></script>
-    <script src="node_modules/simple-lightbox/dist/simpleLightbox.min.js"></script>
-    <link rel="stylesheet" href="node_modules/simple-lightbox/dist/simpleLightbox.min.css">
+    <script src="node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+    <link rel="stylesheet" href="node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css">
     <script src="assets/index.js"></script>
 </body>
 

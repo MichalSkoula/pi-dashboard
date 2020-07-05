@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/MichalSkoula/pi-dashboard#readme",
   "dependencies": {
+    "@fancyapps/fancybox": "^3.5.7",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@popperjs/core": "^2.4.0",
     "axios": "^0.19.2",
