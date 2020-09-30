@@ -73,83 +73,87 @@
                     <div class="col-lg-6 col-sm-12">
                         <h2>Interiér</h2>
                         <div class="row">
-                            <figure class="figure col">
+                            <figure class="figure col-12 col-md-6">
                                 <a target="_blank" :href="settings.indoor_cam_url_1" id="indoor-cam-a-1" data-fancybox="indoor">
                                     <img :src="settings.indoor_cam_url_1" class="figure-img img-fluid img-thumbnail" id="indoor-cam-1">
                                 </a>
                                 <figcaption class="figure-caption text-right">Aktuální snímek z 3D tiskárny #1</figcaption>
                             </figure>
-                            <figure class="figure col">
+                            <figure class="figure col-12 col-md-6">
                                 <a target="_blank" :href="settings.indoor_cam_url_2" id="indoor-cam-a-2" data-fancybox="indoor">
                                     <img :src="settings.indoor_cam_url_2" class="figure-img img-fluid img-thumbnail" id="indoor-cam-2">
                                 </a>
                                 <figcaption class="figure-caption text-right">Aktuální snímek z 3D tiskárny #2</figcaption>
                             </figure>
                         </div>
-                        <div class="row no-gutters col-md-6">
-                        
-                            <table class='table table-hover mt-2 table-sm'>
-                                <tr>
-                                    <td><i class="fas fa-fw fa-thermometer-half"></i></td>
-                                    <td>Vnitřní teplota</td>
-                                    <th>
-                                        {{ json.indoor_temp.actual | formatPercent }} °C<br>
-                                        <small>
-                                             <a href="data/indoor_temp.html" data-type="iframe" data-fancybox="indoor_temp" class="graph" data-graph-type="indoor_temp">
-                                                <i class="fas fa-chart-line"></i>&nbsp;Grafy
-                                            </a>
-                                        </small>
-                                    </th>
-                                    <th>
-                                        <small class='float-right text-right text-muted'>
-                                            <i class="fas fa-chevron-down"></i>&nbsp;{{ json.indoor_temp.min | formatPercent }}<br>
-                                            <i class="fas fa-wave-square"></i>&nbsp;{{ json.indoor_temp.avg | formatPercent }}<br>
-                                            <i class="fas fa-chevron-up"></i>&nbsp;{{ json.indoor_temp.max | formatPercent }}
-                                        </small>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-fw fa-cloud-rain"></i></td>
-                                    <td>Atmosferický tlak</td>
-                                    <th>
-                                        {{ json.indoor_pressure.actual | formatKilo }} kPa
-                                    </th>
-                                    <th>
-                                        <small class='float-right text-right text-muted'>
-                                            <i class="fas fa-chevron-down"></i>&nbsp;{{ json.indoor_pressure.min | formatKilo }}<br>
-                                            <i class="fas fa-wave-square"></i>&nbsp;{{ json.indoor_pressure.avg | formatKilo }}<br>
-                                            <i class="fas fa-chevron-up"></i>&nbsp;{{ json.indoor_pressure.max | formatKilo }}
-                                        </small>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-fw fa-tint"></i></td>
-                                    <td>Vlhkost vzduchu</td>
-                                    <th colspan="2">
-                                        <div class='progress'>
-                                            <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.indoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_humidity | formatNumber}} %</div>
-                                        </div>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-fw fa-seedling"></i></i></td>
-                                    <td>Vlhkost palmy</td>
-                                    <th colspan="2">
-                                        <div class='progress'>
-                                            <div class='progress-bar progress-bar-striped bg-success' role='progressbar' v-bind:style='{ width: json.indoor_moisture + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_moisture | formatNumber }} %</div>
-                                        </div>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-fw fa-sun"></i></i></td>
-                                    <td>Světlo</td>
-                                    <th colspan="2">
-                                        <div class='progress'>
-                                            <div class='progress-bar progress-bar-striped bg-warning' role='progressbar' v-bind:style='{ width: json.indoor_light + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_light | formatNumber }} %</div>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </table>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <table class='table table-hover mt-2 table-sm'>
+                                    <tr>
+                                        <td><i class="fas fa-fw fa-thermometer-half"></i></td>
+                                        <td>Vnitřní teplota</td>
+                                        <th>
+                                            {{ json.indoor_temp.actual | formatPercent }} °C<br>
+                                            <small>
+                                                 <a href="data/indoor_temp.html" data-type="iframe" data-fancybox="indoor_temp" class="graph" data-graph-type="indoor_temp">
+                                                    <i class="fas fa-chart-line"></i>&nbsp;Grafy
+                                                </a>
+                                            </small>
+                                        </th>
+                                        <th>
+                                            <small class='float-right text-right text-muted'>
+                                                <i class="fas fa-chevron-down"></i>&nbsp;{{ json.indoor_temp.min | formatPercent }}<br>
+                                                <i class="fas fa-wave-square"></i>&nbsp;{{ json.indoor_temp.avg | formatPercent }}<br>
+                                                <i class="fas fa-chevron-up"></i>&nbsp;{{ json.indoor_temp.max | formatPercent }}
+                                            </small>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-fw fa-cloud-rain"></i></td>
+                                        <td>Atmosferický tlak</td>
+                                        <th>
+                                            {{ json.indoor_pressure.actual | formatKilo }} kPa
+                                        </th>
+                                        <th>
+                                            <small class='float-right text-right text-muted'>
+                                                <i class="fas fa-chevron-down"></i>&nbsp;{{ json.indoor_pressure.min | formatKilo }}<br>
+                                                <i class="fas fa-wave-square"></i>&nbsp;{{ json.indoor_pressure.avg | formatKilo }}<br>
+                                                <i class="fas fa-chevron-up"></i>&nbsp;{{ json.indoor_pressure.max | formatKilo }}
+                                            </small>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-fw fa-tint"></i></td>
+                                        <td>Vlhkost vzduchu</td>
+                                        <th colspan="2">
+                                            <div class='progress'>
+                                                <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.indoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_humidity | formatNumber}} %</div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-fw fa-seedling"></i></i></td>
+                                        <td>Vlhkost palmy</td>
+                                        <th colspan="2">
+                                            <div class='progress'>
+                                                <div class='progress-bar progress-bar-striped bg-success' role='progressbar' v-bind:style='{ width: json.indoor_moisture + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_moisture | formatNumber }} %</div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fas fa-fw fa-sun"></i></i></td>
+                                        <td>Světlo</td>
+                                        <th colspan="2">
+                                            <div class='progress'>
+                                                <div class='progress-bar progress-bar-striped bg-warning' role='progressbar' v-bind:style='{ width: json.indoor_light + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_light | formatNumber }} %</div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col">
+                                
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-sm-12">
