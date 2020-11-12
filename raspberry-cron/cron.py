@@ -113,8 +113,8 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor(dictionary=True)
 sql = """
-    INSERT INTO log (indoor_temp, indoor_pressure, indoor_humidity, indoor_moisture, indoor_light, outdoor_temp, outdoor_pressure, outdoor_humidity, cpu_temp, cpu_load, memory, hdd) 
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    INSERT INTO log (indoor_temp, indoor_pressure, indoor_humidity, indoor_moisture, indoor_light, outdoor_temp, outdoor_pressure, outdoor_humidity, outdoor_rain, cpu_temp, cpu_load, memory, hdd) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 val = (
     indoorTemp,
@@ -125,6 +125,7 @@ val = (
     outdoorTemp,
     outdoor['pressure'],
     outdoor['humidity'],
+    outdoor['rain'],
     cpuTemp,
     cpuLoad,
     memory,
@@ -184,6 +185,7 @@ data = {
         'avg': averageToday['avg_outdoor_pressure'],
     },
     'outdoor_humidity': outdoor['humidity'],
+    'outdoor_rain': outdoor['rain'],
     'cpu_temp': cpuTemp,
     'cpu_load': cpuLoad,
     'memory': memory,

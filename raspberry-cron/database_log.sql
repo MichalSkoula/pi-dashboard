@@ -18,6 +18,7 @@ CREATE TABLE `log` (
   `outdoor_temp` float NOT NULL DEFAULT 0,
   `outdoor_pressure` float NOT NULL DEFAULT 0,
   `outdoor_humidity` float NOT NULL DEFAULT 0,
+  `outdoor_rain` float NOT NULL DEFAULT 0,
   `cpu_temp` float NOT NULL DEFAULT 0,
   `cpu_load` float NOT NULL DEFAULT 0,
   `memory` float NOT NULL DEFAULT 0,

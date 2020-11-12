@@ -109,7 +109,7 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <td><i class="fas fa-fw fa-cloud-rain"></i></td>
+                                        <td><i class="fas fa-fw fa-cloud-download-alt"></i></td>
                                         <td>Atmosferický tlak</td>
                                         <th>
                                             {{ json.indoor_pressure.actual | formatKilo }} kPa
@@ -127,7 +127,7 @@
                                         <td>Vlhkost vzduchu</td>
                                         <th colspan="2">
                                             <div class='progress'>
-                                                <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.indoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_humidity | formatNumber}} %</div>
+                                                <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: json.indoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_humidity | formatNumber}} %</div>
                                             </div>
                                         </th>
                                     </tr>
@@ -185,7 +185,7 @@
                                 </th>
                             </tr>
                             <tr>
-                                <td><i class="fas fa-fw fa-cloud-rain"></i></td>
+                                <td><i class="fas fa-fw fa-cloud-download-alt"></i></td>
                                 <td>Atmosferický tlak</td>
                                 <th>
                                     {{ json.outdoor_pressure.actual | formatKilo }} kPa
@@ -203,7 +203,16 @@
                                 <td>Vlhkost vzduchu</td>
                                 <th colspan="2">
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.outdoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.outdoor_humidity }} %</div>
+                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: json.outdoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.outdoor_humidity }} %</div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-fw fa-cloud-showers-heavy"></i></td>
+                                <td>Déšť</td>
+                                <th colspan="2">
+                                    <div class='progress'>
+                                        <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.outdoor_rain + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.outdoor_rain }} %</div>
                                     </div>
                                 </th>
                             </tr>

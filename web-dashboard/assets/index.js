@@ -47,7 +47,7 @@ var vm = new Vue({
             indoor_temp: {},
             outdoor_temp: {},
             indoor_pressure: {},
-            outdoor_pressure: {}
+            outdoor_pressure: {},
         },
         settings: {
             indoor_cam_url_1: use_motion ? location.href.replace(/\/$/, "") + ':8081' : 'data/indoor_1.jpg',

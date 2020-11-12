@@ -9,7 +9,7 @@
 int humidityPin = 4;
 DHT dht11(humidityPin, DHT11);
 
-//rain
+// rain
 const double WetValue = 65;
 const double DryValue = 0;
 int rainPowerPin = 7;
