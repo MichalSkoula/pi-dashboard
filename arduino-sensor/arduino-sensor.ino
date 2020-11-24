@@ -51,7 +51,6 @@ void loop() {
     moisture = (1 - ((moisture - WaterValue) / (AirValue - WaterValue))) * 100;
     
     float light = analogRead(lightPin);
-    Serial.println(light);
     light = (1 - ((light - LightValue) / (DarkValue - LightValue))) * 100;
 
     digitalWrite(rainPowerPin, HIGH);
