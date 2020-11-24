@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include <M2M_LM75A.h>
+#include <LM75A.h> //https://github.com/QuentinCG/Arduino-LM75A-Temperature-Sensor-Library
 #include <Adafruit_BMP085.h>
 #include "DHT.h"
 #include <ArduinoJson.h>
@@ -22,15 +22,14 @@ const double WaterValue = 260;
 
 // light
 int lightPin = A1;
-const double DarkValue = 840;
+const double DarkValue = 1017;
 const double LightValue = 2;
 
 // sensors -------------------------
-M2M_LM75A lm75a;
+LM75A lm75a;
 Adafruit_BMP085 bmp180;
 
 void setup() {
-    lm75a.begin();
     bmp180.begin();
     dht11.begin();
 
@@ -42,7 +41,7 @@ void setup() {
 
 void loop() {
     // get data
-    float temp1 = lm75a.getTemperature();
+    float temp1 = lm75a.getTemperatureInDegrees();
     float temp2 = bmp180.readTemperature();
     float pressure = (bmp180.readPressure() + 32 * 100);
     float temp3 = dht11.readTemperature();
@@ -52,6 +51,7 @@ void loop() {
     moisture = (1 - ((moisture - WaterValue) / (AirValue - WaterValue))) * 100;
     
     float light = analogRead(lightPin);
+    Serial.println(light);
     light = (1 - ((light - LightValue) / (DarkValue - LightValue))) * 100;
 
     digitalWrite(rainPowerPin, HIGH);

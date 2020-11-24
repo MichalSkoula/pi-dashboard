@@ -203,7 +203,7 @@
                                 <td>Vlhkost vzduchu</td>
                                 <th colspan="2">
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: json.outdoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.outdoor_humidity }} %</div>
+                                        <div class='progress-bar progress-bar-striped bg-info' role='progressbar' v-bind:style='{ width: json.outdoor_humidity + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.outdoor_humidity | formatNumber}} %</div>
                                     </div>
                                 </th>
                             </tr>
@@ -212,7 +212,7 @@
                                 <td>Déšť</td>
                                 <th colspan="2">
                                     <div class='progress'>
-                                        <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.outdoor_rain + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.outdoor_rain }} %</div>
+                                        <div class='progress-bar progress-bar-striped' role='progressbar' v-bind:style='{ width: json.outdoor_rain + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.outdoor_rain | formatNumber }} %</div>
                                     </div>
                                 </th>
                             </tr>
