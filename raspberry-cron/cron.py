@@ -70,9 +70,13 @@ os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + conf
 os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam_1']  + ' ' + config.webserver + '/indoor_1.jpg')
 os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam_2']  + ' ' + config.webserver + '/indoor_2.jpg')
 
+# arduino sensor settings
+default_data_set = '{"temp1":0,"temp2":0,"temp3":0,"pressure":0,"humidity":0,"moisture":0,"light":0,"rain":0}'
+default_json = json.loads(default_data_set)
+max_guesses_allowed = 10
+
 # get data from arduino outdoor sensor
 count = 0
-max_guesses_allowed = 10
 found = False
 while not found and count < max_guesses_allowed:
     outdoor = readLastLine(serial.Serial(config.android_devices['outdoor_dev'], 115200, timeout=3))
@@ -80,10 +84,12 @@ while not found and count < max_guesses_allowed:
         outdoor = json.loads(outdoor)
         print(outdoor)
         found = True
-    print("outdoor wrong")
+    if found == False:
+        print("outdoor wrong")
     count += 1
 if found == False:
-    exit()
+    outdoor = default_json
+    print("gave up")
 
 # get data from arduino indoor sensor
 count = 0
@@ -94,12 +100,14 @@ while not found and count < max_guesses_allowed:
         indoor = json.loads(indoor)
         print(indoor)
         found = True
-    print("indoor wrong")
+    if found == False:
+        print("indoor wrong")
     count += 1
 if found == False:
-    exit()
+    indoor = default_json
+    print("gave up")
 
-# average 
+# average
 indoorTemp = (indoor['temp1'] + indoor['temp2'] + indoor['temp3']) / 3
 outdoorTemp = (outdoor['temp1'] + outdoor['temp2'] + outdoor['temp3']) / 3
 
