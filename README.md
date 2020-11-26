@@ -1,7 +1,7 @@
 # pi-dashboard
 Personal project. Dashboard for my Raspberries, showing temperature, pressure and humidity from different places. Available sensors: LM75, DHT11, BMP180, Capacitive sensor (all plugged into Arduino). 
 
-Live demo: http://ledtech.skoula.cz
+Live demo: http://ledtechpi.skoula.cz
 
 
 ## dashboard 
