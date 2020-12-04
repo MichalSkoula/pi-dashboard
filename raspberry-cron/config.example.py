@@ -17,3 +17,10 @@ cameras = dict(
 )
 
 webserver = '/var/www/html/data'
+
+ssh = dict(
+    host = '',
+    username = '',
+    password = '',
+    remote_path = ''
+)

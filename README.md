@@ -15,8 +15,8 @@ Arduino connected to Raspberry, sending JSON via serial connection.
 ### cron.py + config.py
 Python script to fetch data from sensors, save to database and JSON file.
 
-* sudo apt install fswebcam motion python-pandas
-* pip install psutil gpiozero pyserial mysql-connector-python requests plotly
+* sudo apt install fswebcam motion python-pandas libffi-dev
+* pip install psutil gpiozero pyserial mysql-connector-python requests plotly paramiko
 
 ### log.sql 
 MySQL table to save data.

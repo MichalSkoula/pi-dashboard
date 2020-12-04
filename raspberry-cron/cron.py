@@ -11,6 +11,10 @@ from datetime import datetime
 from shutil import copyfile
 import time
 import plotly.express as px
+from paramiko import SSHClient
+from scp import SCPClient
+import paramiko
+
 
 # functions
 def readLastLine(ser):
@@ -206,3 +210,16 @@ with open(config.webserver + '/data.json', 'w') as f:
 # process graphs
 generateGraph('indoor_temp', "Vnitřní teplota");
 generateGraph('outdoor_temp', "Venkovní teplota");
+
+# upload it to proper server
+ssh = SSHClient()
+ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+ssh.connect(config.ssh['host'], username=config.ssh['username'], password=config.ssh['password'])
+
+with SCPClient(ssh.get_transport()) as scp:
+    scp.put(config.webserver + '/data.json', config.ssh['remote_path'] + '/data.json')
+    scp.put(config.webserver + '/outdoor.jpg', config.ssh['remote_path'] + '/outdoor.jpg')
+    scp.put(config.webserver + '/indoor_1.jpg', config.ssh['remote_path'] + '/indoor_1.jpg')
+    scp.put(config.webserver + '/indoor_2.jpg', config.ssh['remote_path'] + '/indoor_2.jpg')
+    scp.put(config.webserver + '/indoor_temp.html', config.ssh['remote_path'] + '/indoor_temp.html')
+    scp.put(config.webserver + '/outdoor_temp.html', config.ssh['remote_path'] + '/outdoor_temp.html')
