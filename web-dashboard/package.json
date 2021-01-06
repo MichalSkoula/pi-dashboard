@@ -20,7 +20,7 @@
     "@fancyapps/fancybox": "^3.5.7",
     "@fortawesome/fontawesome-free": "^5.15.0",
     "@popperjs/core": "^2.5.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
     "jquery": "^3.5.1",
     "vue": "^2.6.12"
