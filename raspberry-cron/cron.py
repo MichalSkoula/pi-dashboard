@@ -15,7 +15,6 @@ from paramiko import SSHClient
 from scp import SCPClient
 import paramiko
 
-
 # functions
 def readLastLine(ser):
     last_data=''
@@ -82,6 +81,7 @@ max_guesses_allowed = 10
 # get data from arduino outdoor sensor
 count = 0
 found = False
+
 while not found and count < max_guesses_allowed:
     outdoor = readLastLine(serial.Serial(config.android_devices['outdoor_dev'], 115200, timeout=3))
     if isJson(outdoor):
@@ -125,8 +125,8 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor(dictionary=True)
 sql = """
-    INSERT INTO log (indoor_temp, indoor_pressure, indoor_humidity, indoor_moisture, indoor_light, outdoor_temp, outdoor_pressure, outdoor_humidity, outdoor_rain, cpu_temp, cpu_load, memory, hdd) 
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    INSERT INTO log (indoor_temp, indoor_pressure, indoor_humidity, indoor_moisture, indoor_light, indoor_gas, outdoor_temp, outdoor_pressure, outdoor_humidity, outdoor_rain, cpu_temp, cpu_load, memory, hdd) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 val = (
     indoorTemp,
@@ -134,6 +134,7 @@ val = (
     indoor['humidity'],
     indoor['moisture'],
     indoor['light'],
+    indoor['gas'],
     outdoorTemp,
     outdoor['pressure'],
     outdoor['humidity'],
@@ -184,6 +185,7 @@ data = {
     'indoor_humidity': indoor['humidity'],
     'indoor_moisture': indoor['moisture'],
     'indoor_light': indoor['light'],
+    'indoor_gas': indoor['gas'],
     'outdoor_temp': {
         'actual': outdoorTemp,
         'min': averageToday['min_outdoor_temp'],
@@ -211,7 +213,7 @@ with open(config.webserver + '/data.json', 'w') as f:
 generateGraph('indoor_temp', "Vnitřní teplota");
 generateGraph('outdoor_temp', "Venkovní teplota");
 
-# upload it to proper server
+# upload it 
 ssh = SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect(config.ssh['host'], username=config.ssh['username'], password=config.ssh['password'])

@@ -149,6 +149,15 @@
                                             </div>
                                         </th>
                                     </tr>
+                                    <tr>
+                                        <td><i class="fas fa-fw fa-burn"></i></i></td>
+                                        <td>Plyn</td>
+                                        <th colspan="2">
+                                            <div class='progress'>
+                                                <div class='progress-bar progress-bar-striped bg-danger' role='progressbar' v-bind:style='{ width: json.indoor_gas + "%" }' aria-valuemin='0' aria-valuemax='100'> {{ json.indoor_gas | formatNumber }} %</div>
+                                            </div>
+                                        </th>
+                                    </tr>
                                 </table>
                             </div>
                             <div class="col">

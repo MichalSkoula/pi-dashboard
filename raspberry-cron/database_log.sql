@@ -15,6 +15,7 @@ CREATE TABLE `log` (
   `indoor_humidity` float NOT NULL DEFAULT 0,
   `indoor_moisture` float NOT NULL DEFAULT 0,
   `indoor_light` float NOT NULL DEFAULT 0,
+  `indoor_gas` float NOT NULL DEFAULT 0,
   `outdoor_temp` float NOT NULL DEFAULT 0,
   `outdoor_pressure` float NOT NULL DEFAULT 0,
   `outdoor_humidity` float NOT NULL DEFAULT 0,
