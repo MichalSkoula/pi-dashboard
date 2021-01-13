@@ -25,6 +25,12 @@ int lightPin = A1;
 const double DarkValue = 1017;
 const double LightValue = 2;
 
+// CO
+const float COMaxValue = 500;
+const float COMinValue = 163;
+float CO_sensor = A3;
+float CO_value;
+
 // sensors -------------------------
 LM75A lm75a;
 Adafruit_BMP085 bmp180;
@@ -35,6 +41,8 @@ void setup() {
 
     pinMode(rainPowerPin, OUTPUT);
 
+    pinMode(CO_sensor, INPUT);
+  
     while (!Serial); // wait for serial monitor  
     Serial.begin(115200);
 }
@@ -53,6 +61,10 @@ void loop() {
     float light = analogRead(lightPin);
     light = (1 - ((light - LightValue) / (DarkValue - LightValue))) * 100;
 
+    float gas = analogRead(CO_sensor);
+    gas = (1 - ((gas - COMaxValue) / (COMinValue - COMaxValue))) * 100;
+
+    // rain
     digitalWrite(rainPowerPin, HIGH);
     delay(1);
     float rain = analogRead(rainPin);
@@ -60,7 +72,7 @@ void loop() {
     digitalWrite(rainPowerPin, LOW);
     
     // json object
-    const int capacity = JSON_OBJECT_SIZE(8);
+    const int capacity = JSON_OBJECT_SIZE(9);
     StaticJsonDocument<capacity> json;
 
     json["temp1"] = temp1;
@@ -71,6 +83,7 @@ void loop() {
     json["moisture"] = moisture;
     json["light"] = light;
     json["rain"] = rain;
+    json["gas"] = gas;
 
     serializeJson(json, Serial);
 
