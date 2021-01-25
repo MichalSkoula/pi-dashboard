@@ -17,8 +17,8 @@ int rainPin = A0;
 
 // moisture
 int moisturePin = A2;
-const double AirValue = 630;
-const double WaterValue = 260;
+const double AirValue = 736;
+const double WaterValue = 270;
 
 // light
 int lightPin = A1;
