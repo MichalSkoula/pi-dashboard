@@ -36,8 +36,7 @@ var vm = new Vue({
             
             // if not using motion, update camera images
             if (!use_motion) {
-                document.getElementById('indoor-cam-1').src = document.getElementById('indoor-cam-a-1').href = this.settings.indoor_cam_url_1 + '?t=' + (new Date().getTime());
-                document.getElementById('indoor-cam-2').src = document.getElementById('indoor-cam-a-2').href = this.settings.indoor_cam_url_2 + '?t=' + (new Date().getTime());
+                document.getElementById('indoor-cam').src = document.getElementById('indoor-cam-a').href = this.settings.indoor_cam_url + '?t=' + (new Date().getTime());
                 document.getElementById('outdoor-cam').src = document.getElementById('outdoor-cam-a').href = this.settings.outdoor_cam_url + '?t=' + (new Date().getTime());
             }
         }
@@ -50,8 +49,7 @@ var vm = new Vue({
             outdoor_pressure: {},
         },
         settings: {
-            indoor_cam_url_1: use_motion ? location.href.replace(/\/$/, "") + ':8081' : 'data/indoor_1.jpg',
-            indoor_cam_url_2: use_motion ? location.href.replace(/\/$/, "") + ':8081' : 'data/indoor_2.jpg',
+            indoor_cam_url: use_motion ? location.href.replace(/\/$/, "") + ':8081' : 'data/indoor.jpg',
             outdoor_cam_url: use_motion ? location.href.replace(/\/$/, "") + ':8082' : 'data/outdoor.jpg'
         }
     },

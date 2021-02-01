@@ -1,5 +1,6 @@
 # This Python file uses the following encoding: utf-8
 #!/usr/bin/env python
+
 from gpiozero import CPUTemperature
 import psutil
 import os
@@ -70,8 +71,7 @@ print(hddUsage)
 
 # use Fswebcam to take picture - only if not using motion streams
 os.system('fswebcam -r 640x480 -d ' + config.cameras['outdoor_cam'] + ' ' + config.webserver + '/outdoor.jpg') 
-os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam_1']  + ' ' + config.webserver + '/indoor_1.jpg')
-os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam_2']  + ' ' + config.webserver + '/indoor_2.jpg')
+os.system('fswebcam -r 640x480 -d ' + config.cameras['indoor_cam']  + ' ' + config.webserver + '/indoor.jpg')
 
 # arduino sensor settings
 default_data_set = '{"temp1":0,"temp2":0,"temp3":0,"pressure":0,"humidity":0,"moisture":0,"light":0,"rain":0}'
@@ -221,7 +221,6 @@ ssh.connect(config.ssh['host'], username=config.ssh['username'], password=config
 with SCPClient(ssh.get_transport()) as scp:
     scp.put(config.webserver + '/data.json', config.ssh['remote_path'] + '/data.json')
     scp.put(config.webserver + '/outdoor.jpg', config.ssh['remote_path'] + '/outdoor.jpg')
-    scp.put(config.webserver + '/indoor_1.jpg', config.ssh['remote_path'] + '/indoor_1.jpg')
-    scp.put(config.webserver + '/indoor_2.jpg', config.ssh['remote_path'] + '/indoor_2.jpg')
+    scp.put(config.webserver + '/indoor.jpg', config.ssh['remote_path'] + '/indoor.jpg')
     scp.put(config.webserver + '/indoor_temp.html', config.ssh['remote_path'] + '/indoor_temp.html')
     scp.put(config.webserver + '/outdoor_temp.html', config.ssh['remote_path'] + '/outdoor_temp.html')
