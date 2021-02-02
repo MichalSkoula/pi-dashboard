@@ -17,7 +17,7 @@ Python script to fetch data from sensors, save to database and JSON file.
 
 #### install
 * sudo apt install fswebcam motion python-pandas libffi-dev
-* pip install psutil gpiozero pyserial mysql-connector-python requests plotly paramiko
+* pip install psutil gpiozero pyserial mysql-connector-python requests plotly paramiko scp
 
 ### log.sql 
 MySQL table to save data.
